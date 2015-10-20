@@ -6,6 +6,7 @@
     <artifactId>reservation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+
     <dependencies>
 
         <!-- ==================== DEPENDENCIES for "COMPILE" SCOPE ==================== -->
@@ -16,16 +17,35 @@
             <version>1.4.190</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
         <!-- JPA based on Hibernate implemenataion -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.2.2.Final</version>
+            <version>4.3.6.Final</version>
         </dependency>
 
         <!-- Bean validation -->
@@ -37,7 +57,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.3.1.Final</version>
+            <version>4.3.2.Final</version>
         </dependency>
 
         <!-- Logging : SLF4J is used by Hibernate -->
@@ -77,8 +97,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
