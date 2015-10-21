@@ -7,7 +7,7 @@ import java.util.List;
  * Created by mclaveau on 20/10/15.
  */
 @Entity
-@Table(name = "UTILISATEUR", schema = "ROOT")
+@Table(name = "UTILISATEUR")
 public class Utilisateur {
 
     @Id
@@ -91,11 +91,11 @@ public class Utilisateur {
         this.telephone = telephone;
     }
 
-    public Ressource getRessource() {
+  /*  public Ressource getRessource() {
         return ressource;
     }
 
     public void setRessource(Ressource ressource) {
         this.ressource = ressource;
-    }
+    }*/
 }

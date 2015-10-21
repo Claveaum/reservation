@@ -7,7 +7,7 @@ import java.util.List;
  * Created by mclaveau on 20/10/15.
  */
 @Entity
-@Table(name = "TYPE_RESSOURCE", schema = "ROOT")
+@Table(name = "TYPE_RESSOURCE")
 public class TypeRessource {
 
     @Id
@@ -27,12 +27,12 @@ public class TypeRessource {
     public void setId(int id) {
         this.id = id;
     }
-
+/*
     public List<Ressource> getListeRessource() {
         return listeRessource;
     }
 
     public void setListeRessource(List<Ressource> listeRessource) {
         this.listeRessource = listeRessource;
-    }
+    }*/
 }

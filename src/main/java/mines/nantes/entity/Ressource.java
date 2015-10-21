@@ -7,14 +7,14 @@ import java.util.List;
  * Created by mclaveau on 20/10/15.
  */
 @Entity
-@Table(name = "RESSOURCE", schema = "ROOT")
+@Table(name = "RESSOURCE")
 public class Ressource {
 
     @Id
     @Column(name="id")
     private int id;
 
-    @OneToMany(mappedBy="reservation", targetEntity=Reservation.class)
+    @OneToMany(mappedBy="ressource", targetEntity=Reservation.class)
     private List<Reservation> listReservation;
 
     @ManyToOne
@@ -42,7 +42,7 @@ public class Ressource {
         this.id = id;
     }
 
-    public List<Reservation> getListReservation() {
+    /*public List<Reservation> getListReservation() {
         return listReservation;
     }
 
@@ -56,7 +56,7 @@ public class Ressource {
 
     public void setType(TypeRessource type) {
         this.type = type;
-    }
+    }*/
 
     public String getNom() {
         return nom;
@@ -81,12 +81,12 @@ public class Ressource {
     public void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
-
+/*
     public Utilisateur getResponsable() {
         return responsable;
     }
 
     public void setResponsable(Utilisateur responsable) {
         this.responsable = responsable;
-    }
+    }*/
 }

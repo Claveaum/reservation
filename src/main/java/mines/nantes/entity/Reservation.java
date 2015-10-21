@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by mclaveau on 20/10/15.
  */
 @Entity
-@Table(name = "RESERVATION", schema = "ROOT")
+@Table(name = "RESERVATION")
 public class Reservation {
 
     @Id
@@ -32,7 +32,7 @@ public class Reservation {
         this.id = id;
     }
 
-    public Ressource getRessource()
+    /*public Ressource getRessource()
     {
         return ressource;
     }
@@ -40,7 +40,7 @@ public class Reservation {
     public void setRessource(Ressource ressource)
     {
         this.ressource=ressource;
-    }
+    }*/
 
 
     public Date getDateDebut() {
