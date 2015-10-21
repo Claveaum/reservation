@@ -11,6 +11,7 @@ import java.util.List;
 public class Utilisateur {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "id")
     private int id;
 
@@ -91,11 +92,11 @@ public class Utilisateur {
         this.telephone = telephone;
     }
 
-  /*  public Ressource getRessource() {
+    public Ressource getRessource() {
         return ressource;
     }
 
     public void setRessource(Ressource ressource) {
         this.ressource = ressource;
-    }*/
+    }
 }

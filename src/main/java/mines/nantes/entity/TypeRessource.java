@@ -11,6 +11,7 @@ import java.util.List;
 public class TypeRessource {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -27,12 +28,12 @@ public class TypeRessource {
     public void setId(int id) {
         this.id = id;
     }
-/*
+
     public List<Ressource> getListeRessource() {
         return listeRessource;
     }
 
     public void setListeRessource(List<Ressource> listeRessource) {
         this.listeRessource = listeRessource;
-    }*/
+    }
 }

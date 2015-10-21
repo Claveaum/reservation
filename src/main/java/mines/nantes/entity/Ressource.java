@@ -11,6 +11,7 @@ import java.util.List;
 public class Ressource {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -42,7 +43,7 @@ public class Ressource {
         this.id = id;
     }
 
-    /*public List<Reservation> getListReservation() {
+    public List<Reservation> getListeReservation() {
         return listReservation;
     }
 
@@ -56,7 +57,7 @@ public class Ressource {
 
     public void setType(TypeRessource type) {
         this.type = type;
-    }*/
+    }
 
     public String getNom() {
         return nom;

@@ -11,6 +11,7 @@ import java.util.Date;
 public class Reservation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -32,7 +33,7 @@ public class Reservation {
         this.id = id;
     }
 
-    /*public Ressource getRessource()
+    public Ressource getRessource()
     {
         return ressource;
     }
@@ -40,7 +41,7 @@ public class Reservation {
     public void setRessource(Ressource ressource)
     {
         this.ressource=ressource;
-    }*/
+    }
 
 
     public Date getDateDebut() {
