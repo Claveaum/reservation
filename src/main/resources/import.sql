@@ -1,0 +1,1 @@
+INSERT INTO TYPE_RESSOURCE (id, nom) VALUES (1,'test');
