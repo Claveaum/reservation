@@ -15,8 +15,8 @@ public class Ressource {
     @Column(name="id")
     private int id;
 
-    @OneToMany(mappedBy="ressource", targetEntity=Reservation.class)
-    private List<Reservation> listReservation;
+    @OneToMany(mappedBy="ressource")
+    private List<Reservation> listeReservation;
 
     @ManyToOne
     @JoinColumn(name = "type")
@@ -31,7 +31,7 @@ public class Ressource {
     @Column(name="localisation")
     private String localisation;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "responsable")
     private Utilisateur responsable;
 
@@ -44,11 +44,11 @@ public class Ressource {
     }
 
     public List<Reservation> getListeReservation() {
-        return listReservation;
+        return listeReservation;
     }
 
-    public void setListReservation(List<Reservation> listReservation) {
-        this.listReservation = listReservation;
+    public void setListeReservation(List<Reservation> listReservation) {
+        this.listeReservation = listReservation;
     }
 
     public TypeRessource getType() {
@@ -82,12 +82,12 @@ public class Ressource {
     public void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
-/*
+
     public Utilisateur getResponsable() {
         return responsable;
     }
 
     public void setResponsable(Utilisateur responsable) {
         this.responsable = responsable;
-    }*/
+    }
 }

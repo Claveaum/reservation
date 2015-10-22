@@ -7,7 +7,11 @@ import java.util.List;
  * Created by mclaveau on 20/10/15.
  */
 @Entity
-@Table(name = "TYPE_RESSOURCE")
+@Table(name = "TYPE_RESSOURCE",
+        uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"nom"})
+        }
+)
 public class TypeRessource {
 
     @Id
@@ -18,7 +22,7 @@ public class TypeRessource {
     @Column(name="nom")
     private String nom;
 
-    @OneToMany(mappedBy="type", targetEntity=Ressource.class)
+    @OneToMany(mappedBy="type")
     private List<Ressource> listeRessource;
 
     public int getId() {
@@ -29,6 +33,14 @@ public class TypeRessource {
         this.id = id;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     public List<Ressource> getListeRessource() {
         return listeRessource;
     }
@@ -36,4 +48,6 @@ public class TypeRessource {
     public void setListeRessource(List<Ressource> listeRessource) {
         this.listeRessource = listeRessource;
     }
+
+
 }

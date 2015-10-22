@@ -7,7 +7,11 @@ import java.util.List;
  * Created by mclaveau on 20/10/15.
  */
 @Entity
-@Table(name = "UTILISATEUR")
+@Table(name = "UTILISATEUR",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"login"})
+        }
+)
 public class Utilisateur {
 
     @Id
@@ -33,8 +37,8 @@ public class Utilisateur {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToOne(mappedBy="responsable", targetEntity=Ressource.class)
-    private Ressource ressource;
+    @OneToMany(mappedBy="responsable")
+    private List<Ressource> listeRessource;
 
     public int getId() {
         return id;
@@ -92,11 +96,11 @@ public class Utilisateur {
         this.telephone = telephone;
     }
 
-    public Ressource getRessource() {
-        return ressource;
+    public List<Ressource> getListeRessource() {
+        return listeRessource;
     }
 
-    public void setRessource(Ressource ressource) {
-        this.ressource = ressource;
+    public void setListeRessource(List<Ressource> listeRessource) {
+        this.listeRessource = listeRessource;
     }
 }
