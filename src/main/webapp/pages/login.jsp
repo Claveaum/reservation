@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Site de Réservation</title>
+    <title>Site de Rï¿½servation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -16,13 +16,13 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="login">Login:</label>
             <div class="col-md-3">
-                <input type="login" value="${utilisateur.login}" class="form-control" id="login" placeholder="Entrer votre login">
+                <input type="login" class="form-control" id="login" placeholder="Entrer votre login">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2" for="pwd">Password:</label>
+            <label class="control-label col-md-2" for="password">Password:</label>
             <div class="col-md-3">
-                <input type="password" value="${utilisateur.password}" class="form-control" id="pwd" placeholder="Entrer votre mot de passe">
+                <input type="password" class="form-control" id="password" placeholder="Entrer votre mot de passe">
             </div>
         </div>
         <div class="form-group">

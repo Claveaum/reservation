@@ -3,4 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+
+    <filter>
+        <description>Requires user to log in as a member</description>
+        <filter-name>MemberLoginFilter</filter-name>
+        <filter-class>mines.nantes.controller.filter.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MemberLoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

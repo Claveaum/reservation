@@ -1,4 +1,4 @@
-package mines.nantes.controller;
+package mines.nantes.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +17,11 @@ public abstract class LoginFilter implements javax.servlet.Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest)request;
         HttpServletResponse resp = (HttpServletResponse)response;
+        RequestDispatcher dispatcher;
 
-        if (!isAuth()) {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        if (!isAuth(req)) {
+            dispatcher=request.getRequestDispatcher("/pages/login.jsp");
+            dispatcher.forward(request,response);
             return; //break filter chain, requested JSP/servlet will not be executed
         }
 
@@ -31,6 +33,6 @@ public abstract class LoginFilter implements javax.servlet.Filter {
      * logic to accept or reject access to the page, check log in status
      * @return true when authentication is deemed valid
      */
-    protected abstract boolean isAuth();
+    protected abstract boolean isAuth(HttpServletRequest req);
 
 }

@@ -1,4 +1,4 @@
-package mines.nantes.controller;
+package mines.nantes.controller.servlet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
