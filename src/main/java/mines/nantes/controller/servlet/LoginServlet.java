@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         Utilisateur utilisateur = utilisateurDAO.getUtilisateurParLoginPassword(login,password);
         if(null != utilisateur){
             request.getSession().setAttribute("user",utilisateur);
-            response.sendRedirect("/reservation/");
+            response.sendRedirect("/reservation/reservation");
         }else{
             dispatcher=request.getRequestDispatcher("/WEB-INF/html/login.jsp");
             dispatcher.forward(request,response);
