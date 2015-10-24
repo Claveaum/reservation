@@ -20,9 +20,9 @@ public abstract class LoginFilter implements javax.servlet.Filter {
         RequestDispatcher dispatcher;
 
         if (!isAuth(req)) {
-            dispatcher=request.getRequestDispatcher("/pages/login.jsp");
+            dispatcher=request.getRequestDispatcher("/WEB-INF/html/login.jsp");
             dispatcher.forward(request,response);
-            return; //break filter chain, requested JSP/servlet will not be executed
+            return;
         }
 
         //propagate to next element in the filter chain, ultimately JSP/ servlet gets executed

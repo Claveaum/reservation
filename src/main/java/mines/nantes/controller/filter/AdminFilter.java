@@ -12,7 +12,7 @@ public class AdminFilter extends LoginFilter {
     @Override
     protected boolean isAuth(HttpServletRequest req) {
         Utilisateur user = (Utilisateur) req.getSession().getAttribute("user");
-        if (null != user){
+        if (null != user && user.isAdmin()){
             return true;
         }
         return false;

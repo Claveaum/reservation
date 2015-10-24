@@ -38,7 +38,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
             default:
                 request.setAttribute("page","reservation");
         }
-        dispatcher=request.getRequestDispatcher("/html/template.jsp");
+        dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
         dispatcher.forward(request,response);
     }
 }
