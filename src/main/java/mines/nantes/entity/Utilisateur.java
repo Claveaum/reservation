@@ -40,7 +40,7 @@ public class Utilisateur {
     @OneToMany(mappedBy="responsable")
     private List<Ressource> listeRessource;
 
-    @Column(name = "admin")
+    @Column(name = "admin", columnDefinition="boolean default false")
     private boolean admin;
 
     public int getId() {
