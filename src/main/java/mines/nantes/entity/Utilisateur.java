@@ -40,6 +40,9 @@ public class Utilisateur {
     @OneToMany(mappedBy="responsable")
     private List<Ressource> listeRessource;
 
+    @Column(name = "admin")
+    private boolean admin;
+
     public int getId() {
         return id;
     }
@@ -102,5 +105,13 @@ public class Utilisateur {
 
     public void setListeRessource(List<Ressource> listeRessource) {
         this.listeRessource = listeRessource;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }
