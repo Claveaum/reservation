@@ -18,9 +18,9 @@
   <![endif]-->
 </head>
 <body>
-<%@include file="header.jspf"%>
-<jsp:include page="/WEB-INF/html/${requestScope.page}.jspf"/>
-<%@include file="footer.jspf"%><!DOCTYPE html>
+<%@include file="header.jsp"%>
+<jsp:include page="/WEB-INF/html/${requestScope.page}.jsp"/>
+<%@include file="footer.jsp"%><!DOCTYPE html>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

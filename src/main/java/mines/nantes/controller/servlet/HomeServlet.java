@@ -1,5 +1,7 @@
 package mines.nantes.controller.servlet;
 
+import mines.nantes.dao.RessourceDAO;
+import mines.nantes.dao.TypeRessourceDAO;
 import mines.nantes.dao.UtilisateurDAO;
 import mines.nantes.entity.Utilisateur;
 
@@ -27,9 +29,13 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("page","reservation");
                 break;
             case "/typeRessource":
+                TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
+                request.setAttribute("listTypeRessource",typeRessourceDAO.getListeTypeRessource());
                 request.setAttribute("page","typeRessource");
                 break;
             case "/ressource":
+                RessourceDAO ressourceDAO = new RessourceDAO();
+                request.setAttribute("listRessource",ressourceDAO.getListeRessource());
                 request.setAttribute("page","ressource");
                 break;
             case "/utilisateur":
