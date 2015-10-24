@@ -19,8 +19,8 @@
                 <select id="typeRessource" value="${ressource.type}" class="form-control">
                     <option value="Type1">Type1</option>
                     <option value="Type2">Type2</option>
-                    <c:forEach items="${typeRessource}" var="typeRessourceListe">
-                        <option value="${typeRessource}">${typeRessource}</option>
+                    <c:forEach items="${typeRessourceListe}" var="typeRessource">
+                        <option value="${typeRessource.id}">${typeRessource.nom}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -39,8 +39,8 @@
                 <select id="responsable" value="${ressource.responsable}" class="form-control">
                     <option value="Type1">user1</option>
                     <option value="Type2">user2</option>
-                    <c:forEach items="${responsable}" var="utilisateurListe">
-                        <option value="${responsable}">${responsable}</option>
+                    <c:forEach items="${utilisateurListe}" var="responsable">
+                        <option value="${responsable.id}">${responsable.prenom + " " + responsable.nom}</option>
                     </c:forEach>
                 </select>
             </div>
