@@ -1,5 +1,8 @@
 package mines.nantes.controller.servlet;
 
+import mines.nantes.dao.UtilisateurDAO;
+import mines.nantes.entity.Utilisateur;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -30,7 +33,9 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("page","ressource");
                 break;
             case "/utilisateur":
+                UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
                 request.setAttribute("page","utilisateur");
+                request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
                 break;
             case "/reservationAdmin":
                 request.setAttribute("page","reservationAdmin");
