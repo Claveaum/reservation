@@ -47,15 +47,16 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne la liste des ressources ayant des réservations futures
-     * @param dateCourante
+     * Retourne la liste des ressources ayant pour responsable idResponsable
+     * @param idResponsable
      * @return
      */
-    public List<Ressource> getRessourcesAvecResaFuture(Date dateCourante)
+    public List<Ressource> getRessourcesResponsable(int idResponsable)
     {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Ressource.class.getName() + " r INNER JOIN r.listeReservation resa WHERE resa.dateDebut > :dateDebut");
-        q.setParameter("dateDebut", dateCourante);
+                "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.responsable responsable WHERE responsable.id = :idResponsable");
+        q.setParameter("idResponsable", idResponsable);
         return q.getResultList();
     }
+
 }

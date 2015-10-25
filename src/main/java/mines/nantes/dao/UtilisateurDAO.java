@@ -5,6 +5,8 @@ import mines.nantes.entity.Utilisateur;
 
 import org.hibernate.exception.ConstraintViolationException;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -18,52 +20,51 @@ public class UtilisateurDAO extends AbstractDAO<Utilisateur> {
     }
 
     /**
-     * Sauvegarde une entitÈ utilisateur
+     * Sauvegarde une entit√© utilisateur
+     *
      * @param utilisateur
-     * @throws UniciteException dÈclanchÈe si le login est dÈj‡ utilisÈ
+     * @throws UniciteException d√©clanch√©e si le login est d√©j√† utilis√©
      */
     @Override
     public void sauvegarder(Utilisateur utilisateur) throws UniciteException {
-        try{
+        try {
             super.sauvegarder(utilisateur);
-        }
-        catch (UniciteException e)
-        {
-            Manager.getEntityManager().getTransaction().rollback();
-            throw new UniciteException("Le login "+utilisateur.getLogin()+" est dÈj‡ utilisÈ");
+        } catch (UniciteException e) {
+            if(Manager.getEntityManager().getTransaction().isActive()) {
+                Manager.getEntityManager().getTransaction().rollback();
+            }
+            throw new UniciteException("Le login " + utilisateur.getLogin() + " est d√©j√† utilis√©");
         }
     }
+
     /**
      * Retourne la liste de tous les utilisateurs
+     *
      * @return liste Utilisateur
      */
-    public List<Utilisateur> getListeUtilisateur()
-    {
+    public List<Utilisateur> getListeUtilisateur() {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT u FROM " + Utilisateur.class.getName() + " u");
         return (List) q.getResultList();
     }
 
     /**
-     * Retourne l'utilisateur correspondant au login / password. Si aucun utilisateur trouvÈ,
+     * Retourne l'utilisateur correspondant au login / password. Si aucun utilisateur trouv√©,
      * alors retourn null
+     *
      * @param login
      * @param password
      * @return l'Utilisateur correspondant login/password ou null s'il n'existe pas
      */
-    public Utilisateur getUtilisateurParLoginPassword(String login, String password)
-    {
+    public Utilisateur getUtilisateurParLoginPassword(String login, String password) {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT u FROM " + Utilisateur.class.getName() + " u WHERE login = :login AND password = :password");
         q.setParameter("login", login);
         q.setParameter("password", password);
         List<Utilisateur> resultat = q.getResultList();
-        if(resultat.size()==1)
-        {
+        if (resultat.size() == 1) {
             return resultat.get(0);
-        }
-        else
-        {
+        } else {
             return null;
         }
     }

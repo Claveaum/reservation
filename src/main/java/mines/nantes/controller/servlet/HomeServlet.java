@@ -8,6 +8,7 @@ import mines.nantes.dao.UtilisateurDAO;
 import mines.nantes.entity.Reservation;
 import mines.nantes.entity.Ressource;
 import mines.nantes.entity.TypeRessource;
+
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.text.ParseException;
@@ -150,6 +151,11 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
             case "/admin/ressource" :
                 request.setAttribute("listRessource",ressourceDAO.getListeRessource());
                 request.setAttribute("page", "admin/ressource");
+                break;
+            case "/admin/utilisateur" :
+                UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+                request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
+                request.setAttribute("page", "admin/utilisateur");
                 break;
         }
 

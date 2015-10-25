@@ -31,7 +31,7 @@ public class ManagerRessourceServlet extends HttpServlet {
                 break;
             default:
                 RequestDispatcher dispatcher;
-                request.setAttribute("page","ressource");
+                request.setAttribute("page","/admin/ressource");
                 dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
                 RessourceDAO ressourceDAO = new RessourceDAO();
                 request.setAttribute("listRessource",ressourceDAO.getListeRessource());
@@ -58,7 +58,9 @@ public class ManagerRessourceServlet extends HttpServlet {
         {
             idTypeRessource = Integer.parseInt(idTypeRessourceStr);
             idResponsable = Integer.parseInt(idResponsableStr);
-            idRessource = Integer.parseInt(idRessourceStr);
+            if(estModification) {
+                idRessource = Integer.parseInt(idRessourceStr);
+            }
         }
         catch (NumberFormatException e)
         {
@@ -76,7 +78,7 @@ public class ManagerRessourceServlet extends HttpServlet {
         try {
             ressourceDAO.sauvegarder(ressourceASauvegarder);
             RequestDispatcher dispatcher;
-            request.setAttribute("enregistrementOK",true);
+            request.setAttribute("enregistrementOK", true);
             if(estModification)
             {
                 request.setAttribute("enregistrementMessage","Modification effectuée");
@@ -86,7 +88,7 @@ public class ManagerRessourceServlet extends HttpServlet {
                 request.setAttribute("enregistrementMessage","Ajout de ressource effectué");
             }
             dispatcher=request.getRequestDispatcher("/reservation/admin/ressource");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (UniciteException e) {
 
             request.setAttribute("erreur",true);
@@ -111,7 +113,7 @@ public class ManagerRessourceServlet extends HttpServlet {
                 break;
             default:
                 RequestDispatcher dispatcher;
-                request.setAttribute("page","ressource");
+                request.setAttribute("page","/admin/ressource");
                 dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
                 RessourceDAO ressourceDAO = new RessourceDAO();
                 request.setAttribute("listRessource",ressourceDAO.getListeRessource());
@@ -123,7 +125,7 @@ public class ManagerRessourceServlet extends HttpServlet {
 
     private void gererAjouterGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        request.setAttribute("page","admin/ajouterRessource");
+        request.setAttribute("page","admin/ajoutModifRessource");
         dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
 
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
@@ -147,7 +149,7 @@ public class ManagerRessourceServlet extends HttpServlet {
             request.setAttribute("modifier",true);
             request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
             request.setAttribute("utilisateurListe",utilisateurDAO.getListeUtilisateur());
-            request.setAttribute("page","admin/ajouterRessource");
+            request.setAttribute("page","admin/ajoutModifRessource");
         }
         RequestDispatcher dispatcher;
         dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
