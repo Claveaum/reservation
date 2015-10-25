@@ -120,8 +120,8 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
                 break;
 
-            case "/reservationAdmin":
-                request.setAttribute("page","reservationAdmin");
+            case "/admin/reservationAdmin":
+                request.setAttribute("page","admin/reservationAdmin");
                 dateDebutStr = request.getParameter("dateDebutResa");
                 dateFinStr = request.getParameter("dateFinResa");
                 try {
@@ -163,22 +163,22 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
                 request.setAttribute("page","reservation");
                 break;
-            case "/typeRessource":
+            case "/admin/typeRessource":
                 request.setAttribute("listTypeRessource",typeRessourceDAO.getListeTypeRessource());
-                request.setAttribute("page","typeRessource");
+                request.setAttribute("page","admin/typeRessource");
                 break;
-            case "/ressource":
+            case "/admin/ressource":
                 request.setAttribute("listRessource",ressourceDAO.getListeRessource());
-                request.setAttribute("page","ressource");
+                request.setAttribute("page","admin/ressource");
                 break;
-            case "/utilisateur":
+            case "/admin/utilisateur":
                 UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-                request.setAttribute("page","utilisateur");
+                request.setAttribute("page","admin/utilisateur");
                 request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
                 break;
-            case "/reservationAdmin":
+            case "/admin/reservationAdmin":
                 request.setAttribute("periodeRenseignee",false);
-                request.setAttribute("page","reservationAdmin");
+                request.setAttribute("page","admin/reservationAdmin");
                 break;
             default:
                 request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());

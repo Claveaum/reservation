@@ -5,6 +5,8 @@
   Time: 15:59
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <nav class="navbar navbar-inverse">
     <div class="container">
@@ -15,11 +17,14 @@
             <a class="navbar-brand" href="#"></a></div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class ="active"><a href="/reservation/reservation">Reservation</a></li>
-                <li><a href="/reservation/utilisateur">Utilisateur</a></li>
-                <li><a href="/reservation/ressource">Ressource</a></li>
-                <li><a href="/reservation/typeRessource">Type de ressource</a></li>
-                <li><a href="/reservation/reservationAdmin">Liste des réservations</a></li>
+                <li><a href="/reservation/reservation">Reservation</a></li>
+                <c:if test="${sessionScope.user.admin}">
+                <li><a href="/reservation/admin/utilisateur">Utilisateur</a></li>
+                <li><a href="/reservation/admin/ressource">Ressource</a></li>
+                <li><a href="/reservation/admin/typeRessource">Type de ressource</a></li>
+                <li><a href="/reservation/admin/reservationAdmin">Liste des réservations</a></li>
+                </c:if>
+                <li><a href="/logout">Se déconnecter</a></li>
             </ul>
         </div>
         <!--/.nav-collapse --></div>

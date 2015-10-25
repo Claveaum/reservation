@@ -17,9 +17,9 @@ public class TypeRessourceDAO extends AbstractDAO<TypeRessource> {
     }
 
     /**
-     * Sauvegarde une entité TypeRessource
+     * Sauvegarde une entitÃ© TypeRessource
      * @param typeRessource
-     * @throws UniciteException déclanchée si le nom est déjà utilisé
+     * @throws UniciteException dÃ©clanchÃ©e si le nom est dÃ©jÃ  utilisÃ©
      */
     @Override
     public void sauvegarder(TypeRessource typeRessource) throws UniciteException
@@ -29,7 +29,7 @@ public class TypeRessourceDAO extends AbstractDAO<TypeRessource> {
         }
         catch (UniciteException e) {
             Manager.getEntityManager().getTransaction().rollback();
-            throw new UniciteException("Le type de ressource " + typeRessource.getNom() + " existe déjà");
+            throw new UniciteException("Le type de ressource " + typeRessource.getNom() + " existe dï¿½jï¿½");
         }
     }
 
@@ -54,7 +54,7 @@ public class TypeRessourceDAO extends AbstractDAO<TypeRessource> {
     }
 
     /**
-     * Retourne la totalité des types de ressources
+     * Retourne la totalitÃ© des types de ressources
      * @return
      */
     public List<TypeRessource> getListeTypeRessource()

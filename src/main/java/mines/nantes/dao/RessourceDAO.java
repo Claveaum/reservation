@@ -18,7 +18,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne la totalit� des ressources
+     * Retourne la totalité des ressources
      * @return
      */
     public List<Ressource> getListeRessource()
@@ -29,7 +29,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne une liste de ressource correspondant � un type ET non r�serv�e pendant la p�riode donn�e
+     * Retourne une liste de ressource correspondant à un type ET non réservée pendant la période donnée
      * @param typeRessource
      * @param dateDebut
      * @param dateFin
@@ -47,7 +47,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne la liste des ressources ayant des r�servations futures
+     * Retourne la liste des ressources ayant des réservations futures
      * @param dateCourante
      * @return
      */

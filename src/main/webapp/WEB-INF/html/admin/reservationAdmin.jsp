@@ -12,7 +12,7 @@
     <div class="container">
         <h2>Renseignez une période de recherche des réservations</h2>
 
-        <form action="/reservation/reservationAdmin" class="form-horizontal" role="form" method="post">
+        <form action="/reservation/admin/reservationAdmin" class="form-horizontal" role="form" method="post">
             <div class="form-group">
                 <label class="control-label col-md-5" for="dateDebut">Date de début de la réservation :</label>
 
@@ -60,7 +60,7 @@
             </tbody>
         </table>
         <div class="form-group">
-            <a class="col-md-offset-5 btn btn-default" href="/reservation/reservationAdmin">Nouvelle recherche</a>
+            <a class="col-md-offset-5 btn btn-default" href="/reservation/admin/reservationAdmin">Nouvelle recherche</a>
         </div>
     </div>
 
