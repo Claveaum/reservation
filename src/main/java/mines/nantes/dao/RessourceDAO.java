@@ -18,7 +18,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne la totalité des ressources
+     * Retourne la totalitï¿½ des ressources
      * @return
      */
     public List<Ressource> getListeRessource()
@@ -29,7 +29,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne une liste de ressource correspondant à un type ET non réservée pendant la période donnée
+     * Retourne une liste de ressource correspondant ï¿½ un type ET non rï¿½servï¿½e pendant la pï¿½riode donnï¿½e
      * @param typeRessource
      * @param dateDebut
      * @param dateFin
@@ -38,8 +38,8 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     public List<Ressource> getRessourcesAvecTypeLibres(TypeRessource typeRessource, Date dateDebut, Date dateFin)
     {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Ressource.class.getName() + " r INNER JOIN r.listeReservation resa WHERE r.type = :typeRessource" +
-                        " AND (resa.dateDebut > :dateFin OR resa.dateFin < :dateDebut)");
+                "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.listeReservation resa WHERE r.type = :typeRessource" +
+                        " AND (resa IS NULL OR (resa.dateDebut > :dateFin OR resa.dateFin < :dateDebut))");
         q.setParameter("typeRessource", typeRessource);
         q.setParameter("dateDebut", dateDebut);
         q.setParameter("dateFin", dateFin);
@@ -47,7 +47,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
     }
 
     /**
-     * Retourne la liste des ressources ayant des réservations futures
+     * Retourne la liste des ressources ayant des rï¿½servations futures
      * @param dateCourante
      * @return
      */
