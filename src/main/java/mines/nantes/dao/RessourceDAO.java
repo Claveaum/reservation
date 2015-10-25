@@ -59,4 +59,12 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
         return q.getResultList();
     }
 
+    public List<Ressource> getRessourcesAvecType(int idTypeRessource)
+    {
+        Query q = Manager.getEntityManager().createQuery(
+                "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.type type WHERE type.id = :idTypeRessource");
+        q.setParameter("idTypeRessource", idTypeRessource);
+        return q.getResultList();
+    }
+
 }

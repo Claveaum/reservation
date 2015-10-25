@@ -152,6 +152,10 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("listRessource",ressourceDAO.getListeRessource());
                 request.setAttribute("page", "admin/ressource");
                 break;
+            case "/admin/typeRessource" :
+                request.setAttribute("listeTypeRessource",typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("page", "admin/typeRessource");
+                break;
             case "/admin/utilisateur" :
                 UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
                 request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
@@ -176,7 +180,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("page","reservation");
                 break;
             case "/admin/typeRessource":
-                request.setAttribute("listTypeRessource",typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("listeTypeRessource",typeRessourceDAO.getListeTypeRessource());
                 request.setAttribute("page","admin/typeRessource");
                 break;
             case "/admin/ressource":

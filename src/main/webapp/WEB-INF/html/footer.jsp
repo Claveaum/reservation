@@ -8,6 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer class="footer">
   <div class="container">
-    <p class="text-muted">Site réalisé par <b>Pierre Cailleaud</b> et <b>Maxime Claveau</b> dans le cadre des enseignements de JEE à l'école des mines de Nantes.</p>
+    <p style="margin-top: 30px" class="text-muted">Site réalisé par <b>Pierre Cailleaud</b> et <b>Maxime Claveau</b> dans le cadre des enseignements de JEE à l'école des mines de Nantes.</p>
   </div>
 </footer>
