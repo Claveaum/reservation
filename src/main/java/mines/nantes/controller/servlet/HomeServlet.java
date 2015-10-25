@@ -146,6 +146,11 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                     request.setAttribute("messageErreur", "Aucune réservation pour la période donnée, veuillez réessayer");
                 }
                 break;
+
+            case "/admin/ressource" :
+                request.setAttribute("listRessource",ressourceDAO.getListeRessource());
+                request.setAttribute("page", "admin/ressource");
+                break;
         }
 
         dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
@@ -157,6 +162,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         RequestDispatcher dispatcher;
         TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
         RessourceDAO ressourceDAO = new RessourceDAO();
+        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
         switch(forward){
             case "/reservation":
@@ -172,13 +178,18 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("page","admin/ressource");
                 break;
             case "/admin/utilisateur":
-                UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
                 request.setAttribute("page","admin/utilisateur");
                 request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
                 break;
             case "/admin/reservationAdmin":
                 request.setAttribute("periodeRenseignee",false);
                 request.setAttribute("page","admin/reservationAdmin");
+                break;
+
+            case "/admin/ajouterRessource":
+                request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("utilisateurListe",utilisateurDAO.getListeUtilisateur());
+                request.setAttribute("page","admin/ajouterRessource");
                 break;
             default:
                 request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());

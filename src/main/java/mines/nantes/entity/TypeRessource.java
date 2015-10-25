@@ -1,6 +1,10 @@
 package mines.nantes.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -23,6 +27,7 @@ public class TypeRessource {
     private String nom;
 
     @OneToMany(mappedBy="type")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Ressource> listeRessource;
 
     public int getId() {
