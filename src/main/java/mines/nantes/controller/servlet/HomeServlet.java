@@ -8,11 +8,6 @@ import mines.nantes.dao.UtilisateurDAO;
 import mines.nantes.entity.Reservation;
 import mines.nantes.entity.Ressource;
 import mines.nantes.entity.TypeRessource;
-import mines.nantes.entity.Utilisateur;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.text.ParseException;
@@ -33,6 +28,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
 
         TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
         RessourceDAO ressourceDAO = new RessourceDAO();
+        ReservationDAO reservationDAO = new ReservationDAO();
         String dateDebutStr;
         String dateFinStr;
         String ressourceId;
@@ -68,7 +64,6 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 reservation.setRessource(ressource);
                 reservation.setDateDebut(dateDebut);
                 reservation.setDateFin(dateFin);
-                ReservationDAO reservationDAO = new ReservationDAO();
                 try {
                     reservationDAO.sauvegarder(reservation);
                 } catch (UniciteException e) {
@@ -124,7 +119,35 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 }
                 request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
                 break;
+
+            case "/reservationAdmin":
+                request.setAttribute("page","reservationAdmin");
+                dateDebutStr = request.getParameter("dateDebutResa");
+                dateFinStr = request.getParameter("dateFinResa");
+                try {
+                    if (dateDebutStr != null && dateFinStr != null) {
+                        dateDebut = sdf.parse(dateDebutStr);
+                        dateFin = sdf.parse(dateFinStr);
+                    }
+                } catch (ParseException e) {
+                    request.setAttribute("erreur",true);
+                    request.setAttribute("messageErreur", "Dates non valides");
+                    break;
+                }
+                List<Reservation> listeResa = reservationDAO.getReservationParPeriode(dateDebut,dateFin);
+                if(listeResa.size()>0)
+                {
+                    request.setAttribute("listeReservation", listeResa);
+                    request.setAttribute("periodeRenseignee",true);
+                }
+                else
+                {
+                    request.setAttribute("erreur",true);
+                    request.setAttribute("messageErreur", "Aucune réservation pour la période donnée, veuillez réessayer");
+                }
+                break;
         }
+
         dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
         dispatcher.forward(request,response);
     }
@@ -154,6 +177,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
                 break;
             case "/reservationAdmin":
+                request.setAttribute("periodeRenseignee",false);
                 request.setAttribute("page","reservationAdmin");
                 break;
             default:
