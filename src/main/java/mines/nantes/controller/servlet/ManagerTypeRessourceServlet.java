@@ -39,42 +39,6 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
         }
     }
 
-    private void gererEnregistrement(HttpServletRequest request, HttpServletResponse response, boolean estModification) throws ServletException, IOException {
-        String idTypeRessourceStr = request.getParameter("idTypeRessource");
-        String nom = request.getParameter("nom");
-
-        TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
-        int idTypeRessource = 0;
-        try {
-            if (estModification) {
-                idTypeRessource = Integer.parseInt(idTypeRessourceStr);
-            }
-        } catch (NumberFormatException e) {
-            //
-        }
-        TypeRessource typeRessourceASauvegarder = new TypeRessource();
-        if (idTypeRessource > 0 && estModification) {
-            typeRessourceASauvegarder = typeRessourceDAO.trouverParId(idTypeRessource);
-        }
-        typeRessourceASauvegarder.setNom(nom);
-
-        RequestDispatcher dispatcher;
-        try {
-            typeRessourceDAO.sauvegarder(typeRessourceASauvegarder);
-            request.setAttribute("enregistrementOK", true);
-            if (estModification) {
-                request.setAttribute("enregistrementMessage", "Modification effectuée");
-            } else {
-                request.setAttribute("enregistrementMessage", "Ajout de ressource effectué");
-            }
-        } catch (UniciteException e) {
-            request.setAttribute("erreur", true);
-            request.setAttribute("messageErreur", e.getMessage());
-        }
-        dispatcher = request.getRequestDispatcher("/reservation/admin/typeRessource");
-        dispatcher.forward(request, response);
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String forward = request.getPathInfo();
@@ -95,14 +59,11 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
             case "supprimerValider":
                 String idTypeRessourceStr = args[2];
                 TypeRessource typeRessourceASupprimer = new TypeRessource();
-                try
-                {
+                try {
                     int idTypeRessource = Integer.parseInt(idTypeRessourceStr);
                     typeRessourceASupprimer = typeRessourceDAO.trouverParId(idTypeRessource);
 
-                }
-                catch (NumberFormatException e)
-                {
+                } catch (NumberFormatException e) {
                     // Impossible de récupérer le type de ressource
                 }
                 supprimerTypeRessource(request, typeRessourceASupprimer);
@@ -176,5 +137,42 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
         request.setAttribute("enregistrementOK", true);
         request.setAttribute("enregistrementMessage", "Suppression effectuée");
         request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
+    }
+
+
+    private void gererEnregistrement(HttpServletRequest request, HttpServletResponse response, boolean estModification) throws ServletException, IOException {
+        String idTypeRessourceStr = request.getParameter("idTypeRessource");
+        String nom = request.getParameter("nom");
+
+        TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
+        int idTypeRessource = 0;
+        try {
+            if (estModification) {
+                idTypeRessource = Integer.parseInt(idTypeRessourceStr);
+            }
+        } catch (NumberFormatException e) {
+            //
+        }
+        TypeRessource typeRessourceASauvegarder = new TypeRessource();
+        if (idTypeRessource > 0 && estModification) {
+            typeRessourceASauvegarder = typeRessourceDAO.trouverParId(idTypeRessource);
+        }
+        typeRessourceASauvegarder.setNom(nom);
+
+        RequestDispatcher dispatcher;
+        try {
+            typeRessourceDAO.sauvegarder(typeRessourceASauvegarder);
+            request.setAttribute("enregistrementOK", true);
+            if (estModification) {
+                request.setAttribute("enregistrementMessage", "Modification effectuée");
+            } else {
+                request.setAttribute("enregistrementMessage", "Ajout de ressource effectué");
+            }
+        } catch (UniciteException e) {
+            request.setAttribute("erreur", true);
+            request.setAttribute("messageErreur", e.getMessage());
+        }
+        dispatcher = request.getRequestDispatcher("/reservation/admin/typeRessource");
+        dispatcher.forward(request, response);
     }
 }

@@ -25,6 +25,10 @@ public class Reservation {
     @Column(name = "datefin")
     private Date dateFin;
 
+    @ManyToOne
+    @JoinColumn(name = "utilisateur")
+    private Utilisateur utilisateur;
+
     public int getId() {
         return id;
     }
@@ -56,5 +60,13 @@ public class Reservation {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

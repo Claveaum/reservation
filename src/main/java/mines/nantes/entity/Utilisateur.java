@@ -43,6 +43,9 @@ public class Utilisateur {
     @Column(name = "admin", columnDefinition = "boolean default false")
     private boolean admin;
 
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Reservation> listeReservation;
+
     public int getId() {
         return id;
     }
@@ -113,5 +116,13 @@ public class Utilisateur {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public List<Reservation> getListeReservation() {
+        return listeReservation;
+    }
+
+    public void setListeReservation(List<Reservation> listeReservation) {
+        this.listeReservation = listeReservation;
     }
 }

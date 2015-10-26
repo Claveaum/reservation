@@ -8,6 +8,9 @@
             ${messageErreur}
     </div>
 </c:if>
+<c:if test="${enregistrementOK}">
+    <div class="alert alert-info" role="alert">${enregistrementMessage}</div>
+</c:if>
 <c:if test="${!periodeRenseignee}">
     <div class="container">
         <h2>Renseignez une période de recherche des réservations</h2>
@@ -47,6 +50,8 @@
                 <th>Nom de la ressource</th>
                 <th>Date début réservation</th>
                 <th>Date fin réservation</th>
+                <th>Réservé par</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -55,6 +60,8 @@
                     <td>${resa.ressource.nom}</td>
                     <td><fmt:formatDate value="${resa.dateDebut}" pattern="dd/MM/yyy"/></td>
                     <td><fmt:formatDate value="${resa.dateFin}" pattern="dd/MM/yyy"/></td>
+                    <td>${resa.utilisateur.prenom} ${resa.utilisateur.nom}</td>
+                    <td><a href="/annulerReservation/${resa.id}">Annuler</a></td>
                 </tr>
             </c:forEach>
             </tbody>

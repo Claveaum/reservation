@@ -18,11 +18,14 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/reservation/reservation">Reservation</a></li>
+                <c:if test="${!sessionScope.user.admin}">
+                    <li><a href="/reservation/reservationUser">Liste des réservations</a></li>
+                </c:if>
                 <c:if test="${sessionScope.user.admin}">
-                <li><a href="/reservation/admin/utilisateur">Utilisateur</a></li>
-                <li><a href="/reservation/admin/ressource">Ressource</a></li>
-                <li><a href="/reservation/admin/typeRessource">Type de ressource</a></li>
-                <li><a href="/reservation/admin/reservationAdmin">Liste des réservations</a></li>
+                    <li><a href="/reservation/admin/utilisateur">Utilisateur</a></li>
+                    <li><a href="/reservation/admin/ressource">Ressource</a></li>
+                    <li><a href="/reservation/admin/typeRessource">Type de ressource</a></li>
+                    <li><a href="/reservation/admin/reservationAdmin">Liste des réservations</a></li>
                 </c:if>
                 <li><a href="/logout">Se déconnecter</a></li>
             </ul>

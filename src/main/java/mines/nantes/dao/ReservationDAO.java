@@ -2,8 +2,10 @@ package mines.nantes.dao;
 
 import mines.nantes.entity.Reservation;
 import mines.nantes.entity.Ressource;
+import mines.nantes.entity.Utilisateur;
 
 import javax.persistence.Query;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,9 +54,24 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
      */
     public List<Reservation> getReservationParPeriode(Date dateDebut, Date dateFin) {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Reservation.class.getName() + " r WHERE dateDebut >= :dateDebut AND dateFin <= :dateFin");
+                "SELECT r FROM " + Reservation.class.getName() + " r WHERE r.dateDebut >= :dateDebut AND r.dateFin <= :dateFin");
         q.setParameter("dateDebut", dateDebut);
         q.setParameter("dateFin", dateFin);
+        return (List) q.getResultList();
+    }
+
+    /**
+     * Retourne la liste des réservations d'un utilisateur
+     *
+     * @param utilisateur
+     * @return
+     */
+    public List<Reservation> getReservationParUtilisateur(Utilisateur utilisateur) {
+        Query q = Manager.getEntityManager().createQuery(
+                "SELECT r FROM " + Reservation.class.getName() + " r WHERE r.utilisateur = :utilisateur AND r.dateFin >= :dateJour");
+        q.setParameter("utilisateur", utilisateur);
+        Calendar calendar = Calendar.getInstance();
+        q.setParameter("dateJour", calendar.getTime());
         return (List) q.getResultList();
     }
 }

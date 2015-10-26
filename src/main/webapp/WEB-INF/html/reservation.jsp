@@ -14,13 +14,14 @@
         <a class="btn btn-default" href="/reservation/reservation">Retour</a>
     </c:if>
     <c:if test="${!enregistrementOK}">
-        <form action="/reservation/reservation" method="post" class="form-horizontal" role="form">
+        <form action="/reservation/reservationRecherche" method="post" class="form-horizontal" role="form">
             <div class="form-group">
                 <label class="control-label col-md-5" for="typeRessource">Sélectionner le type de la ressource à
                     réserver:</label>
 
                 <div class="col-md-3">
-                    <select id="typeRessource" name="typeRessourceSelectionne" class="form-control" required="required">
+                    <select id="typeRessource" name="typeRessourceSelectionne" class="form-control"
+                            required="required" ${rechercheEffectuee ? 'disabled=\"disabled\"' : ''}>
                         <c:forEach items="${typeRessourceListe}" var="typeRessource">
                             <option value="${typeRessource.id}" ${typeRessource.id == typeRessourceSelectionne ? 'selected=\"selected\"' : ''} >${typeRessource.nom}</option>
                         </c:forEach>
@@ -33,7 +34,7 @@
                 <div class="col-md-3">
                     <input type="text" name="dateDebutResa" value="${dateDebutResa}" class="form-control" id="dateDebut"
                            required="required"
-                           placeholder="JJ/MM/AAAA">
+                           placeholder="JJ/MM/AAAA" ${rechercheEffectuee ? 'disabled=\"disabled\"' : ''}>
                 </div>
             </div>
             <div class="form-group">
@@ -42,12 +43,14 @@
                 <div class="col-md-3">
                     <input id="dateFin" name="dateFinResa" type="text" value="${dateFinResa}" class="form-control"
                            required="required"
-                           placeholder="JJ/MM/AAAA">
+                           placeholder="JJ/MM/AAAA" ${rechercheEffectuee ? 'disabled=\"disabled\"' : ''}>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-offset-3 col-md-2">
-                    <button type="submit" class="btn btn-default">Chercher les ressources disponibles</button>
+                    <button type="submit" class="btn btn-default" ${rechercheEffectuee ? 'disabled=\"disabled\"' : ''}>
+                        Chercher les ressources disponibles
+                    </button>
                 </div>
             </div>
         </form>
