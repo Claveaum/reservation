@@ -9,7 +9,10 @@
     </div>
 </c:if>
 <c:if test="${enregistrementOK}">
-    <div class="alert alert-info" role="alert">${enregistrementMessage}</div>
+    <div class="alert alert-success" role="alert">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            ${enregistrementMessage}
+    </div>
 </c:if>
 <c:if test="${!reservationPresente}">
     <div class="alert alert-danger" role="alert">

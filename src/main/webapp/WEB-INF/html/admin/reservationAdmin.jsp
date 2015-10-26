@@ -9,13 +9,17 @@
     </div>
 </c:if>
 <c:if test="${enregistrementOK}">
-    <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
+    <div class="alert alert-success" role="alert">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            ${enregistrementMessage}
+    </div>
 </c:if>
 <c:if test="${!periodeRenseignee}">
     <div class="container">
         <h2>Renseignez une période de recherche des réservations</h2>
 
-        <form action="${pageContext.request.contextPath}/reservation/admin/reservationAdmin" class="form-horizontal" role="form" method="post">
+        <form action="${pageContext.request.contextPath}/reservation/admin/reservationAdmin" class="form-horizontal"
+              role="form" method="post">
             <div class="form-group">
                 <label class="control-label col-md-5" for="dateDebut">Date de début de la réservation :</label>
 
@@ -67,7 +71,8 @@
             </tbody>
         </table>
         <div class="form-group">
-            <a class="col-md-offset-5 btn btn-default" href="${pageContext.request.contextPath}/reservation/admin/reservationAdmin">Nouvelle recherche</a>
+            <a class="col-md-offset-5 btn btn-default"
+               href="${pageContext.request.contextPath}/reservation/admin/reservationAdmin">Nouvelle recherche</a>
         </div>
     </div>
 

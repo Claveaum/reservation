@@ -119,7 +119,7 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
             if (ressourceDAO.getRessourcesAvecType(idTypeRessource).size() > 0) {
                 request.setAttribute("page", "admin/typeRessource");
                 request.setAttribute("alerte", true);
-                request.setAttribute("messageAlerte", "Attention, si vous supprimez ce type de ressource, toutes les ressources associées seront supprimées");
+                request.setAttribute("messageAlerte", "Attention, si vous supprimez ce type de ressource, <b>toutes les ressources associées seront supprimées</b>");
                 request.setAttribute("typeRessource", typeRessourceASupprimer);
             } else {
                 supprimerTypeRessource(request, typeRessourceASupprimer);

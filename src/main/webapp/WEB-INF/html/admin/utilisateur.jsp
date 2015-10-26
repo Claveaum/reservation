@@ -11,10 +11,14 @@
             </div>
         </c:if>
         <c:if test="${enregistrementOK}">
-            <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
+            <div class="alert alert-success" role="alert">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    ${enregistrementMessage}
+            </div>
         </c:if>
         <div class="col-md-offset-8 col-md-1" style="text-align: right">
-            <a href="${pageContext.request.contextPath}/admin/utilisateur/ajouter"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>
+            <a href="${pageContext.request.contextPath}/admin/utilisateur/ajouter"><span
+                    class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>
         </div>
         <div class="col-md-3">
             <a href="${pageContext.request.contextPath}/admin/utilisateur/ajouter">
@@ -47,10 +51,12 @@
                 <td>${user.email}</td>
                 <td>${user.telephone}</td>
                 <td>${user.admin}</td>
-                <td><a href="${pageContext.request.contextPath}/admin/utilisateur/modifier/${user.id}"><span class="glyphicon glyphicon-pencil"
-                                                                           aria-hidden="true"/></a></td>
-                <td><a href="${pageContext.request.contextPath}/admin/utilisateur/supprimer/${user.id}"><span class="glyphicon glyphicon-remove"
-                                                                            aria-hidden="true"/></a></td>
+                <td><a href="${pageContext.request.contextPath}/admin/utilisateur/modifier/${user.id}"><span
+                        class="glyphicon glyphicon-pencil"
+                        aria-hidden="true"/></a></td>
+                <td><a href="${pageContext.request.contextPath}/admin/utilisateur/supprimer/${user.id}"><span
+                        class="glyphicon glyphicon-remove"
+                        aria-hidden="true"/></a></td>
             </tr>
         </c:forEach>
         </tbody>

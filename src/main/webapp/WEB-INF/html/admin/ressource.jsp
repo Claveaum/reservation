@@ -11,10 +11,14 @@
             </div>
         </c:if>
         <c:if test="${enregistrementOK}">
-            <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
+            <div class="alert alert-success" role="alert">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    ${enregistrementMessage}
+            </div>
         </c:if>
         <div class="col-md-offset-8 col-md-1" style="text-align: right">
-            <a href="${pageContext.request.contextPath}/admin/ressource/ajouter"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>
+            <a href="${pageContext.request.contextPath}/admin/ressource/ajouter"><span
+                    class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>
         </div>
         <div class="col-md-3">
             <a href="${pageContext.request.contextPath}/admin/ressource/ajouter">
@@ -42,10 +46,12 @@
                 <td>${ressource.description}</td>
                 <td>${ressource.localisation}</td>
                 <td>${ressource.responsable.nom} ${ressource.responsable.prenom}</td>
-                <td><a href="${pageContext.request.contextPath}/admin/ressource/modifier/${ressource.id}"><span class="glyphicon glyphicon-pencil"
-                                                                              aria-hidden="true"/></a></td>
-                <td><a href="${pageContext.request.contextPath}/admin/ressource/supprimer/${ressource.id}"><span class="glyphicon glyphicon-remove"
-                                                                               aria-hidden="true"/></a></td>
+                <td><a href="${pageContext.request.contextPath}/admin/ressource/modifier/${ressource.id}"><span
+                        class="glyphicon glyphicon-pencil"
+                        aria-hidden="true"/></a></td>
+                <td><a href="${pageContext.request.contextPath}/admin/ressource/supprimer/${ressource.id}"><span
+                        class="glyphicon glyphicon-remove"
+                        aria-hidden="true"/></a></td>
             </tr>
         </c:forEach>
         </tbody>

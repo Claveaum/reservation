@@ -14,7 +14,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -111,10 +110,14 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gère l'enregistrement d'une réservation à partir de la requête
+     * @param request
+     */
     private void gererReserverRessource(HttpServletRequest request) {
         request.setAttribute("page", "reservation");
 
-        Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
+        Utilisateur utilisateurCourant = (Utilisateur) request.getSession().getAttribute("user");
         String dateDebutStr = request.getParameter("dateDebutResa");
         String dateFinStr = request.getParameter("dateFinResa");
         String ressourceId = request.getParameter("ressourceSelectionnee");
@@ -134,7 +137,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                     reservation.setRessource(ressource);
                     reservation.setDateDebut(dateDebut);
                     reservation.setDateFin(dateFin);
-                    reservation.setUtilisateur(utilisateur);
+                    reservation.setUtilisateur(utilisateurCourant);
                     try {
                         reservationDAO.sauvegarder(reservation);
                     } catch (UniciteException e) {
@@ -153,12 +156,16 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 gererErreur(request, "Impossible de réserver la ressource, veuillez réessayer");
                 return;
             }
-        } catch (ParseException e) {
+        } catch (Exception e) {
             gererErreur(request, "Impossible de réserver la ressource, veuillez réessayer");
             return;
         }
     }
 
+    /**
+     * Appelée lors du clic sur la recherche des ressources à la réservation
+     * @param request
+     */
     private void gererReservationRecherche(HttpServletRequest request) {
         request.setAttribute("page", "reservation");
 
@@ -227,6 +234,10 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
     }
 
+    /**
+     * Gère la recherche de la liste des réservations de l'admin
+     * @param request
+     */
     private void gererReservationAdminPost(HttpServletRequest request) {
         request.setAttribute("page", "admin/reservationAdmin");
 
@@ -263,6 +274,11 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
 
     }
 
+    /**
+     * Gère les erreur en ajoutant des attributs erreur à la requête
+     * @param request
+     * @param messageErreur
+     */
     private void gererErreur(HttpServletRequest request, String messageErreur) {
         request.setAttribute("erreur", true);
         request.setAttribute("messageErreur", messageErreur);
