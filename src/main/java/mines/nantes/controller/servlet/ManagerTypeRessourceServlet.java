@@ -1,8 +1,10 @@
 package mines.nantes.controller.servlet;
 
 import mines.nantes.Exception.UniciteException;
+import mines.nantes.dao.ReservationDAO;
 import mines.nantes.dao.RessourceDAO;
 import mines.nantes.dao.TypeRessourceDAO;
+import mines.nantes.entity.Ressource;
 import mines.nantes.entity.TypeRessource;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Pierre on 25/10/2015.
@@ -58,17 +62,34 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
                 break;
             case "supprimerValider":
                 String idTypeRessourceStr = args[2];
-                TypeRessource typeRessourceASupprimer = new TypeRessource();
                 try {
+                    request.setAttribute("page", "admin/typeRessource");
                     int idTypeRessource = Integer.parseInt(idTypeRessourceStr);
-                    typeRessourceASupprimer = typeRessourceDAO.trouverParId(idTypeRessource);
-
+                    TypeRessource typeRessourceASupprimer = typeRessourceDAO.trouverParId(idTypeRessource);
+                    boolean reservationPresentes = false;
+                    for (Ressource ressource : typeRessourceASupprimer.getListeRessource()) {
+                        ReservationDAO reservationDAO = new ReservationDAO();
+                        Calendar cal = Calendar.getInstance();
+                        Date dateJour = new Date(cal.getTime().getYear(),cal.getTime().getMonth(),cal.getTime().getDate());
+                        if (reservationDAO.getReservationParRessource(ressource,dateJour).size() > 0) {
+                            reservationPresentes = true;
+                            break;
+                        }
+                    }
+                    if (!reservationPresentes) {
+                        supprimerTypeRessource(request, typeRessourceASupprimer);
+                        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+                        dispatcher.forward(request, response);
+                    } else {
+                        gererErreur(request, "Impossible de supprimer le type de ressource car des ressources ont des réservations en cours ou futures");
+                        request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
+                        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+                        dispatcher.forward(request, response);
+                    }
                 } catch (NumberFormatException e) {
-                    // Impossible de récupérer le type de ressource
+                    gererErreur(request, "Impossible de récupérer le type de ressource à supprimer, <b>Veuillez réessayer</b>");
                 }
-                supprimerTypeRessource(request, typeRessourceASupprimer);
-                dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
-                dispatcher.forward(request, response);
+
                 break;
             default:
                 request.setAttribute("page", "/admin/typeRessource");
@@ -133,10 +154,9 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
     private void supprimerTypeRessource(HttpServletRequest request, TypeRessource typeRessourceASupprimer) {
         TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
         typeRessourceDAO.supprimer(typeRessourceASupprimer);
-        request.setAttribute("page", "admin/typeRessource");
+        request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
         request.setAttribute("enregistrementOK", true);
         request.setAttribute("enregistrementMessage", "Suppression effectuée");
-        request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
     }
 
 
@@ -174,5 +194,10 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
         }
         dispatcher = request.getRequestDispatcher("/reservation/admin/typeRessource");
         dispatcher.forward(request, response);
+    }
+
+    private void gererErreur(HttpServletRequest request, String messageErreur) {
+        request.setAttribute("erreur", true);
+        request.setAttribute("messageErreur", messageErreur);
     }
 }

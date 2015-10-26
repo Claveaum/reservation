@@ -21,7 +21,6 @@ public class Ressource {
     private int id;
 
     @OneToMany(mappedBy = "ressource")
-    @Cascade(CascadeType.DELETE)
     private List<Reservation> listeReservation;
 
     @ManyToOne

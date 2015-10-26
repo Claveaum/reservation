@@ -27,8 +27,8 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
     public List<Reservation> getReservationParRessource(Ressource ressource, Date dateDebut)
     {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Reservation.class.getName() +
-                        " r WHERE r.ressource = :ressource AND dateDebut >= :dateDebut");
+                "SELECT DISTINCT r FROM " + Reservation.class.getName() +
+                        " r WHERE r.ressource = :ressource AND r.dateFin >= :dateDebut");
         q.setParameter("dateDebut", dateDebut);
         q.setParameter("ressource", ressource);
         return (List) q.getResultList();
@@ -68,7 +68,7 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
      */
     public List<Reservation> getReservationParUtilisateur(Utilisateur utilisateur) {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Reservation.class.getName() + " r WHERE r.utilisateur = :utilisateur AND r.dateFin >= :dateJour");
+                "SELECT DISTINCT r FROM " + Reservation.class.getName() + " r WHERE r.utilisateur = :utilisateur AND r.dateFin >= :dateJour");
         q.setParameter("utilisateur", utilisateur);
         Calendar cal = Calendar.getInstance();
         Date dateJour = new Date(cal.getTime().getYear(),cal.getTime().getMonth(),cal.getTime().getDate());

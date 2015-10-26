@@ -37,7 +37,7 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
      */
     public List<Ressource> getRessourcesAvecTypeLibres(TypeRessource typeRessource, Date dateDebut, Date dateFin) {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.listeReservation resa WHERE r.type = :typeRessource" +
+                "SELECT DISTINCT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.listeReservation resa WHERE r.type = :typeRessource" +
                         " AND (resa IS NULL OR (resa.dateDebut > :dateFin OR resa.dateFin < :dateDebut))");
         q.setParameter("typeRessource", typeRessource);
         q.setParameter("dateDebut", dateDebut);
@@ -53,14 +53,14 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
      */
     public List<Ressource> getRessourcesResponsable(int idResponsable) {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.responsable responsable WHERE responsable.id = :idResponsable");
+                "SELECT DISTINCT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.responsable responsable WHERE responsable.id = :idResponsable");
         q.setParameter("idResponsable", idResponsable);
         return q.getResultList();
     }
 
     public List<Ressource> getRessourcesAvecType(int idTypeRessource) {
         Query q = Manager.getEntityManager().createQuery(
-                "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.type type WHERE type.id = :idTypeRessource");
+                "SELECT DISTINCT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.type type WHERE type.id = :idTypeRessource");
         q.setParameter("idTypeRessource", idTypeRessource);
         return q.getResultList();
     }

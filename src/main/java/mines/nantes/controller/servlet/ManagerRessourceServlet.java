@@ -1,9 +1,11 @@
 package mines.nantes.controller.servlet;
 
 import mines.nantes.Exception.UniciteException;
+import mines.nantes.dao.ReservationDAO;
 import mines.nantes.dao.RessourceDAO;
 import mines.nantes.dao.TypeRessourceDAO;
 import mines.nantes.dao.UtilisateurDAO;
+import mines.nantes.entity.Reservation;
 import mines.nantes.entity.Ressource;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/admin/ressource/*")
 public class ManagerRessourceServlet extends HttpServlet {
@@ -167,9 +172,20 @@ public class ManagerRessourceServlet extends HttpServlet {
         if (idRessource > 0) {
             Ressource ressourceASupprimer = ressourceDAO.trouverParId(idRessource);
             if (ressourceASupprimer != null) {
-                ressourceDAO.supprimer(ressourceASupprimer);
-                request.setAttribute("enregistrementOK", true);
-                request.setAttribute("enregistrementMessage", "Suppression effectuée");
+                ReservationDAO reservationDAO = new ReservationDAO();
+                Calendar cal = Calendar.getInstance();
+                Date dateJour = new Date(cal.getTime().getYear(),cal.getTime().getMonth(),cal.getTime().getDate());
+                List<Reservation> reservations = reservationDAO.getReservationParRessource(ressourceASupprimer, dateJour);
+                if(reservations.size()>0)
+                {
+                    gererErreur(request, "Impossible de supprimer la ressource car elle a des réservations en cours ou futures");
+                }
+                else
+                {
+                    ressourceDAO.supprimer(ressourceASupprimer);
+                    request.setAttribute("enregistrementOK", true);
+                    request.setAttribute("enregistrementMessage", "Suppression effectuée");
+                }
             } else {
                 gererErreur(request, "La ressource à supprimer n'existe pas");
             }
