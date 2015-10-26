@@ -4,7 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mines.nantes</groupId>
     <artifactId>reservation</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,6 +96,7 @@
     </dependencies>
 
     <build>
+        <finalName>application</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

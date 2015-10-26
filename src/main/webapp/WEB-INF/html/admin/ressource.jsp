@@ -14,10 +14,10 @@
             <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
         </c:if>
         <div class="col-md-offset-8 col-md-1" style="text-align: right">
-            <a href="/admin/ressource/ajouter"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>
+            <a href="${pageContext.request.contextPath}/admin/ressource/ajouter"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>
         </div>
         <div class="col-md-3">
-            <a href="/admin/ressource/ajouter">
+            <a href="${pageContext.request.contextPath}/admin/ressource/ajouter">
                 <label class="control-label">Ajouter une ressource</label>
             </a>
         </div>
@@ -42,9 +42,9 @@
                 <td>${ressource.description}</td>
                 <td>${ressource.localisation}</td>
                 <td>${ressource.responsable.nom} ${ressource.responsable.prenom}</td>
-                <td><a href="/admin/ressource/modifier/${ressource.id}"><span class="glyphicon glyphicon-pencil"
+                <td><a href="${pageContext.request.contextPath}/admin/ressource/modifier/${ressource.id}"><span class="glyphicon glyphicon-pencil"
                                                                               aria-hidden="true"/></a></td>
-                <td><a href="/admin/ressource/supprimer/${ressource.id}"><span class="glyphicon glyphicon-remove"
+                <td><a href="${pageContext.request.contextPath}/admin/ressource/supprimer/${ressource.id}"><span class="glyphicon glyphicon-remove"
                                                                                aria-hidden="true"/></a></td>
             </tr>
         </c:forEach>

@@ -37,7 +37,7 @@
                     <td><fmt:formatDate value="${resa.dateDebut}" pattern="dd/MM/yyy"/></td>
                     <td><fmt:formatDate value="${resa.dateFin}" pattern="dd/MM/yyy"/></td>
                     <td>${resa.utilisateur.prenom} ${resa.utilisateur.nom}</td>
-                    <td><a href="/annulerReservation/${resa.id}">Annuler</a></td>
+                    <td><a href="${pageContext.request.contextPath}/annulerReservation/${resa.id}">Annuler</a></td>
                 </tr>
             </c:forEach>
             </tbody>

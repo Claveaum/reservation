@@ -15,7 +15,7 @@
     <div class="container">
         <h2>Renseignez une période de recherche des réservations</h2>
 
-        <form action="/reservation/admin/reservationAdmin" class="form-horizontal" role="form" method="post">
+        <form action="${pageContext.request.contextPath}/reservation/admin/reservationAdmin" class="form-horizontal" role="form" method="post">
             <div class="form-group">
                 <label class="control-label col-md-5" for="dateDebut">Date de début de la réservation :</label>
 
@@ -61,13 +61,13 @@
                     <td><fmt:formatDate value="${resa.dateDebut}" pattern="dd/MM/yyy"/></td>
                     <td><fmt:formatDate value="${resa.dateFin}" pattern="dd/MM/yyy"/></td>
                     <td>${resa.utilisateur.prenom} ${resa.utilisateur.nom}</td>
-                    <td><a href="/annulerReservation/${resa.id}">Annuler</a></td>
+                    <td><a href="${pageContext.request.contextPath}/annulerReservation/${resa.id}">Annuler</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <div class="form-group">
-            <a class="col-md-offset-5 btn btn-default" href="/reservation/admin/reservationAdmin">Nouvelle recherche</a>
+            <a class="col-md-offset-5 btn btn-default" href="${pageContext.request.contextPath}/reservation/admin/reservationAdmin">Nouvelle recherche</a>
         </div>
     </div>
 

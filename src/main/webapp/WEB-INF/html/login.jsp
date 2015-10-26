@@ -21,7 +21,7 @@
                 ${messageErreur}
         </div>
     </c:if>
-    <form action="/loginCheck" class="form-horizontal" role="form" method="post">
+    <form action="${pageContext.request.contextPath}/loginCheck" class="form-horizontal" role="form" method="post">
         <div class="form-group">
             <label class="control-label col-md-2" for="login">Login:</label>
             <div class="col-md-3">

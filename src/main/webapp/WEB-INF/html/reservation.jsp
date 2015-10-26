@@ -11,10 +11,10 @@
     </c:if>
     <c:if test="${enregistrementOK}">
         <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
-        <a class="btn btn-default" href="/reservation/reservation">Retour</a>
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/reservation/reservation">Retour</a>
     </c:if>
     <c:if test="${!enregistrementOK}">
-        <form action="/reservation/reservationRecherche" method="post" class="form-horizontal" role="form">
+        <form action="${pageContext.request.contextPath}/reservation/reservationRecherche" method="post" class="form-horizontal" role="form">
             <div class="form-group">
                 <label class="control-label col-md-5" for="typeRessource">Sélectionner le type de la ressource à
                     réserver:</label>
@@ -55,7 +55,7 @@
             </div>
         </form>
         <c:if test="${rechercheEffectuee}">
-            <form action="/reservation/reserverRessource" method="post" class="form-horizontal" role="form">
+            <form action="${pageContext.request.contextPath}/reservation/reserverRessource" method="post" class="form-horizontal" role="form">
                 <input name="dateDebutResa" value="${dateDebutResa}" type="hidden"/>
                 <input name="dateFinResa" value="${dateFinResa}" type="hidden"/>
 

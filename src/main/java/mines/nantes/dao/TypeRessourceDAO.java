@@ -19,7 +19,7 @@ public class TypeRessourceDAO extends AbstractDAO<TypeRessource> {
      * Sauvegarde une entité TypeRessource
      *
      * @param typeRessource
-     * @throws UniciteException déclanchée si le nom est déjà utilisé
+     * @throws UniciteException déclenchée si le nom est déjà utilisé
      */
     @Override
     public void sauvegarder(TypeRessource typeRessource) throws UniciteException {

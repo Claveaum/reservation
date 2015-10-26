@@ -4,7 +4,7 @@
 
     <h2>${modifier ? 'Modifier' : 'Ajouter'} une ressource</h2>
 
-    <form action="${modifier ? '/admin/ressource/modifier' : '/admin/ressource/ajouter'}" method="post"
+    <form action="${pageContext.request.contextPath}${modifier ? '/admin/ressource/modifier' : '/admin/ressource/ajouter'}" method="post"
           class="form-horizontal" role="form">
         <input name="idRessource" value="${ressource.id}" hidden="hidden"/>
 
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="form-group">
-            <a class="btn btn-default col-md-offset-1 col-md-3" href="/reservation/admin/ressource">Retour à la liste
+            <a class="btn btn-default col-md-offset-1 col-md-3" href="${pageContext.request.contextPath}/reservation/admin/ressource">Retour à la liste
                 des ressources</a>
 
             <div class="col-md-2">

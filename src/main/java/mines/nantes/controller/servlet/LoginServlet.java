@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         Utilisateur utilisateur = utilisateurDAO.getUtilisateurParLoginPassword(login, password);
         if (null != utilisateur) {
             request.getSession().setAttribute("user", utilisateur);
-            response.sendRedirect("/reservation/reservation");
+            response.sendRedirect(request.getContextPath()+"/reservation/reservation");
         } else {
             request.setAttribute("erreur",true);
             request.setAttribute("messageErreur","Login / Password inconnu");

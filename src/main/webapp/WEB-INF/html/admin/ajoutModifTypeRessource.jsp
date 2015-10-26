@@ -2,7 +2,7 @@
 <div class="container">
     <h2>${modifier ? 'Modifier' : 'Ajouter'} un type de ressource</h2>
 
-    <form action="${modifier ? '/admin/typeRessource/modifier' : '/admin/typeRessource/ajouter'}" method="post"
+    <form action="${pageContext.request.contextPath}${modifier ? '/admin/typeRessource/modifier' : '/admin/typeRessource/ajouter'}" method="post"
           class="form-horizontal"
           role="form">
         <input name="idTypeRessource" value="${typeRessource.id}" hidden="hidden"/>
