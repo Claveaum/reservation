@@ -47,8 +47,10 @@
                 <td>${user.email}</td>
                 <td>${user.telephone}</td>
                 <td>${user.admin}</td>
-                <td><a href="/admin/utilisateur/modifier/${user.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a></td>
-                <td><a href="/admin/utilisateur/supprimer/${user.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"/></a></td>
+                <td><a href="/admin/utilisateur/modifier/${user.id}"><span class="glyphicon glyphicon-pencil"
+                                                                           aria-hidden="true"/></a></td>
+                <td><a href="/admin/utilisateur/supprimer/${user.id}"><span class="glyphicon glyphicon-remove"
+                                                                            aria-hidden="true"/></a></td>
             </tr>
         </c:forEach>
         </tbody>

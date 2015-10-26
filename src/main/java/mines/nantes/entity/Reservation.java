@@ -12,17 +12,17 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
     @JoinColumn(name = "ressource")
     private Ressource ressource;
 
-    @Column(name="datedebut")
+    @Column(name = "datedebut")
     private Date dateDebut;
 
-    @Column(name="datefin")
+    @Column(name = "datefin")
     private Date dateFin;
 
     public int getId() {
@@ -33,14 +33,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public Ressource getRessource()
-    {
+    public Ressource getRessource() {
         return ressource;
     }
 
-    public void setRessource(Ressource ressource)
-    {
-        this.ressource=ressource;
+    public void setRessource(Ressource ressource) {
+        this.ressource = ressource;
     }
 
 

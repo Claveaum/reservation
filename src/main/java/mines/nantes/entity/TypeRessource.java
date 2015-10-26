@@ -13,20 +13,20 @@ import java.util.List;
 @Entity
 @Table(name = "TYPE_RESSOURCE",
         uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"nom"})
+                @UniqueConstraint(columnNames = {"nom"})
         }
 )
 public class TypeRessource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="nom")
+    @Column(name = "nom")
     private String nom;
 
-    @OneToMany(mappedBy="type")
+    @OneToMany(mappedBy = "type")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Ressource> listeRessource;
 

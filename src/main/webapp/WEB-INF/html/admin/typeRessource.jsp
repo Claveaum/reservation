@@ -21,7 +21,8 @@
                         ${messageAlerte}
                 </div>
                 <div class="col-md-12" style="text-align: center">
-                    <button type="submit" class="btn btn-default">Valider la suppression de "${typeRessource.nom}"</button>
+                    <button type="submit" class="btn btn-default">Valider la suppression de "${typeRessource.nom}"
+                    </button>
                 </div>
             </form>
         </c:if>

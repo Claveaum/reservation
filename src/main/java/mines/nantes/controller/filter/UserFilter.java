@@ -11,7 +11,7 @@ public class UserFilter extends LoginFilter {
     @Override
     protected boolean isAuth(HttpServletRequest req) {
         Utilisateur user = (Utilisateur) req.getSession().getAttribute("user");
-        if (null != user){
+        if (null != user) {
             return true;
         }
         return false;

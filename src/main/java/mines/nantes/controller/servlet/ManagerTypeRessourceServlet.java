@@ -58,21 +58,21 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
         }
         typeRessourceASauvegarder.setNom(nom);
 
+        RequestDispatcher dispatcher;
         try {
             typeRessourceDAO.sauvegarder(typeRessourceASauvegarder);
-            RequestDispatcher dispatcher;
             request.setAttribute("enregistrementOK", true);
             if (estModification) {
                 request.setAttribute("enregistrementMessage", "Modification effectuée");
             } else {
                 request.setAttribute("enregistrementMessage", "Ajout de ressource effectué");
             }
-            dispatcher = request.getRequestDispatcher("/reservation/admin/typeRessource");
-            dispatcher.forward(request, response);
         } catch (UniciteException e) {
             request.setAttribute("erreur", true);
             request.setAttribute("messageErreur", e.getMessage());
         }
+        dispatcher = request.getRequestDispatcher("/reservation/admin/typeRessource");
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

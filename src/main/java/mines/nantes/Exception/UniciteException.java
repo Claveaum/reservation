@@ -5,13 +5,11 @@ package mines.nantes.Exception;
  */
 public class UniciteException extends Exception {
 
-    public UniciteException()
-    {
+    public UniciteException() {
         super();
     }
 
-    public UniciteException(String messageErreur)
-    {
+    public UniciteException(String messageErreur) {
         super(messageErreur);
     }
 }

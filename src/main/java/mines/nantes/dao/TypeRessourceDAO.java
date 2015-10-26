@@ -2,7 +2,6 @@ package mines.nantes.dao;
 
 import mines.nantes.Exception.UniciteException;
 import mines.nantes.entity.TypeRessource;
-import org.hibernate.exception.ConstraintViolationException;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -30,7 +29,7 @@ public class TypeRessourceDAO extends AbstractDAO<TypeRessource> {
             if (Manager.getEntityManager().getTransaction().isActive()) {
                 Manager.getEntityManager().getTransaction().rollback();
             }
-            throw new UniciteException("Le type de ressource " + typeRessource.getNom() + " existe d�j�");
+            throw new UniciteException("Le type de ressource " + typeRessource.getNom() + " existe déjà");
         }
     }
 

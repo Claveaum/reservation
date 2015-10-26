@@ -16,10 +16,10 @@ public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name= "login")
+    @Column(name = "login")
     private String login;
 
     @Column(name = "password")
@@ -31,16 +31,16 @@ public class Utilisateur {
     @Column(name = "prenom")
     private String prenom;
 
-    @Column(name= "email")
+    @Column(name = "email")
     private String email;
 
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToMany(mappedBy="responsable")
+    @OneToMany(mappedBy = "responsable")
     private List<Ressource> listeRessource;
 
-    @Column(name = "admin", columnDefinition="boolean default false")
+    @Column(name = "admin", columnDefinition = "boolean default false")
     private boolean admin;
 
     public int getId() {

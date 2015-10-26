@@ -36,7 +36,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         Date dateDebut = null;
         Date dateFin = null;
 
-        switch(forward) {
+        switch (forward) {
             case "/reserverRessource":
                 request.setAttribute("page", "reservation");
                 dateDebutStr = request.getParameter("dateDebutResa");
@@ -47,15 +47,13 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                     if (dateDebutStr != null && dateFinStr != null) {
                         dateDebut = sdf.parse(dateDebutStr);
                         dateFin = sdf.parse(dateFinStr);
-                    }
-                    else
-                    {
-                        request.setAttribute("erreur",true);
+                    } else {
+                        request.setAttribute("erreur", true);
                         request.setAttribute("messageErreur", "Impossible de réserver la ressource, veuillez réessayer");
                         break;
                     }
                 } catch (ParseException e) {
-                    request.setAttribute("erreur",true);
+                    request.setAttribute("erreur", true);
                     request.setAttribute("messageErreur", "Impossible de réserver la ressource, veuillez réessayer");
                     break;
                 }
@@ -68,11 +66,11 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 try {
                     reservationDAO.sauvegarder(reservation);
                 } catch (UniciteException e) {
-                    request.setAttribute("erreur",true);
+                    request.setAttribute("erreur", true);
                     request.setAttribute("messageErreur", "Impossible de réserver la ressource, veuillez réessayer");
                     break;
                 }
-                request.setAttribute("enregistrementOK",true);
+                request.setAttribute("enregistrementOK", true);
                 request.setAttribute("enregistrementMessage", "Réservation effectuée");
                 break;
 
@@ -80,8 +78,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 request.setAttribute("page", "reservation");
                 String typeRessourceId = request.getParameter("typeRessourceSelectionne");
                 TypeRessource typeRessource = null;
-                if(!"0".equals(typeRessourceId))
-                {
+                if (!"0".equals(typeRessourceId)) {
                     typeRessource = typeRessourceDAO.trouverParId(Integer.parseInt(typeRessourceId));
                 }
                 dateDebutStr = request.getParameter("dateDebutResa");
@@ -92,27 +89,24 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                         dateFin = sdf.parse(dateFinStr);
                     }
                 } catch (ParseException e) {
-                    request.setAttribute("erreur",true);
+                    request.setAttribute("erreur", true);
                     request.setAttribute("messageErreur", "Dates non valides");
-                    request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
+                    request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
                     break;
                 }
 
                 if (typeRessource != null && dateDebut != null && dateFin != null) {
-                    request.setAttribute("typeRessourceSelectionne",typeRessourceId);
-                    request.setAttribute("dateDebutResa",dateDebutStr);
-                    request.setAttribute("dateFinResa",dateFinStr);
+                    request.setAttribute("typeRessourceSelectionne", typeRessourceId);
+                    request.setAttribute("dateDebutResa", dateDebutStr);
+                    request.setAttribute("dateFinResa", dateFinStr);
                     List<Ressource> listeRessource = ressourceDAO.getRessourcesAvecTypeLibres(typeRessource, dateDebut, dateFin);
-                    if(listeRessource.size()>0)
-                    {
+                    if (listeRessource.size() > 0) {
                         request.setAttribute("rechercheEffectuee", true);
-                        request.setAttribute("ressourceDispoListe",listeRessource);
-                    }
-                    else
-                    {
-                        request.setAttribute("erreur",true);
+                        request.setAttribute("ressourceDispoListe", listeRessource);
+                    } else {
+                        request.setAttribute("erreur", true);
                         request.setAttribute("rechercheEffectuee", false);
-                        request.setAttribute("messageErreur","Aucune ressource n'est disponible pour cette période donnée, veuillez réessayer");
+                        request.setAttribute("messageErreur", "Aucune ressource n'est disponible pour cette période donnée, veuillez réessayer");
                     }
 
                 } else {
@@ -122,7 +116,7 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                 break;
 
             case "/admin/reservationAdmin":
-                request.setAttribute("page","admin/reservationAdmin");
+                request.setAttribute("page", "admin/reservationAdmin");
                 dateDebutStr = request.getParameter("dateDebutResa");
                 dateFinStr = request.getParameter("dateFinResa");
                 try {
@@ -131,40 +125,37 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
                         dateFin = sdf.parse(dateFinStr);
                     }
                 } catch (ParseException e) {
-                    request.setAttribute("erreur",true);
+                    request.setAttribute("erreur", true);
                     request.setAttribute("messageErreur", "Dates non valides");
                     break;
                 }
-                List<Reservation> listeResa = reservationDAO.getReservationParPeriode(dateDebut,dateFin);
-                if(listeResa.size()>0)
-                {
+                List<Reservation> listeResa = reservationDAO.getReservationParPeriode(dateDebut, dateFin);
+                if (listeResa.size() > 0) {
                     request.setAttribute("listeReservation", listeResa);
-                    request.setAttribute("periodeRenseignee",true);
-                }
-                else
-                {
-                    request.setAttribute("erreur",true);
+                    request.setAttribute("periodeRenseignee", true);
+                } else {
+                    request.setAttribute("erreur", true);
                     request.setAttribute("messageErreur", "Aucune réservation pour la période donnée, veuillez réessayer");
                 }
                 break;
 
-            case "/admin/ressource" :
-                request.setAttribute("listRessource",ressourceDAO.getListeRessource());
+            case "/admin/ressource":
+                request.setAttribute("listRessource", ressourceDAO.getListeRessource());
                 request.setAttribute("page", "admin/ressource");
                 break;
-            case "/admin/typeRessource" :
-                request.setAttribute("listeTypeRessource",typeRessourceDAO.getListeTypeRessource());
+            case "/admin/typeRessource":
+                request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
                 request.setAttribute("page", "admin/typeRessource");
                 break;
-            case "/admin/utilisateur" :
+            case "/admin/utilisateur":
                 UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-                request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
+                request.setAttribute("listUser", utilisateurDAO.getListeUtilisateur());
                 request.setAttribute("page", "admin/utilisateur");
                 break;
         }
 
-        dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
-        dispatcher.forward(request,response);
+        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -174,38 +165,38 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         RessourceDAO ressourceDAO = new RessourceDAO();
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
-        switch(forward){
+        switch (forward) {
             case "/reservation":
-                request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
-                request.setAttribute("page","reservation");
+                request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("page", "reservation");
                 break;
             case "/admin/typeRessource":
-                request.setAttribute("listeTypeRessource",typeRessourceDAO.getListeTypeRessource());
-                request.setAttribute("page","admin/typeRessource");
+                request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("page", "admin/typeRessource");
                 break;
             case "/admin/ressource":
-                request.setAttribute("listRessource",ressourceDAO.getListeRessource());
-                request.setAttribute("page","admin/ressource");
+                request.setAttribute("listRessource", ressourceDAO.getListeRessource());
+                request.setAttribute("page", "admin/ressource");
                 break;
             case "/admin/utilisateur":
-                request.setAttribute("page","admin/utilisateur");
-                request.setAttribute("listUser",utilisateurDAO.getListeUtilisateur());
+                request.setAttribute("page", "admin/utilisateur");
+                request.setAttribute("listUser", utilisateurDAO.getListeUtilisateur());
                 break;
             case "/admin/reservationAdmin":
-                request.setAttribute("periodeRenseignee",false);
-                request.setAttribute("page","admin/reservationAdmin");
+                request.setAttribute("periodeRenseignee", false);
+                request.setAttribute("page", "admin/reservationAdmin");
                 break;
 
             case "/admin/ajouterRessource":
-                request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
-                request.setAttribute("utilisateurListe",utilisateurDAO.getListeUtilisateur());
-                request.setAttribute("page","admin/ajouterRessource");
+                request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("utilisateurListe", utilisateurDAO.getListeUtilisateur());
+                request.setAttribute("page", "admin/ajouterRessource");
                 break;
             default:
-                request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
-                request.setAttribute("page","reservation");
+                request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
+                request.setAttribute("page", "reservation");
         }
-        dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
-        dispatcher.forward(request,response);
+        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+        dispatcher.forward(request, response);
     }
 }

@@ -18,8 +18,8 @@
         </div>
         <div class="col-md-3">
             <a href="/admin/ressource/ajouter">
-        <label class="control-label">Ajouter une ressource</label>
-                </a>
+                <label class="control-label">Ajouter une ressource</label>
+            </a>
         </div>
     </div>
     <table class="table">
@@ -42,8 +42,10 @@
                 <td>${ressource.description}</td>
                 <td>${ressource.localisation}</td>
                 <td>${ressource.responsable.nom} ${ressource.responsable.prenom}</td>
-                <td><a href="/admin/ressource/modifier/${ressource.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a></td>
-                <td><a href="/admin/ressource/supprimer/${ressource.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"/></a></td>
+                <td><a href="/admin/ressource/modifier/${ressource.id}"><span class="glyphicon glyphicon-pencil"
+                                                                              aria-hidden="true"/></a></td>
+                <td><a href="/admin/ressource/supprimer/${ressource.id}"><span class="glyphicon glyphicon-remove"
+                                                                               aria-hidden="true"/></a></td>
             </tr>
         </c:forEach>
         </tbody>

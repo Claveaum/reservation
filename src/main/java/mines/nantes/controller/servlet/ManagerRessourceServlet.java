@@ -22,20 +22,20 @@ public class ManagerRessourceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = request.getPathInfo();
         String[] args = forward.split("/");
-        switch (args[1]){
-            case "ajouter" :
+        switch (args[1]) {
+            case "ajouter":
                 gererEnregistrement(request, response, false);
                 break;
-            case "modifier" :
+            case "modifier":
                 gererEnregistrement(request, response, true);
                 break;
             default:
                 RequestDispatcher dispatcher;
-                request.setAttribute("page","/admin/ressource");
-                dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+                request.setAttribute("page", "/admin/ressource");
+                dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
                 RessourceDAO ressourceDAO = new RessourceDAO();
-                request.setAttribute("listRessource",ressourceDAO.getListeRessource());
-                dispatcher.forward(request,response);
+                request.setAttribute("listRessource", ressourceDAO.getListeRessource());
+                dispatcher.forward(request, response);
                 break;
         }
     }
@@ -54,20 +54,17 @@ public class ManagerRessourceServlet extends HttpServlet {
         int idTypeRessource = 0;
         int idResponsable = 0;
         int idRessource = 0;
-        try
-        {
+        try {
             idTypeRessource = Integer.parseInt(idTypeRessourceStr);
             idResponsable = Integer.parseInt(idResponsableStr);
-            if(estModification) {
+            if (estModification) {
                 idRessource = Integer.parseInt(idRessourceStr);
             }
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             //
         }
         Ressource ressourceASauvegarder = new Ressource();
-        if(idRessource>0 && estModification) {
+        if (idRessource > 0 && estModification) {
             ressourceASauvegarder = ressourceDAO.trouverParId(idRessource);
         }
         ressourceASauvegarder.setDescription(descriptionRessource);
@@ -79,21 +76,18 @@ public class ManagerRessourceServlet extends HttpServlet {
             ressourceDAO.sauvegarder(ressourceASauvegarder);
             RequestDispatcher dispatcher;
             request.setAttribute("enregistrementOK", true);
-            if(estModification)
-            {
-                request.setAttribute("enregistrementMessage","Modification effectuée");
+            if (estModification) {
+                request.setAttribute("enregistrementMessage", "Modification effectuée");
+            } else {
+                request.setAttribute("enregistrementMessage", "Ajout de ressource effectué");
             }
-            else
-            {
-                request.setAttribute("enregistrementMessage","Ajout de ressource effectué");
-            }
-            dispatcher=request.getRequestDispatcher("/reservation/admin/ressource");
+            dispatcher = request.getRequestDispatcher("/reservation/admin/ressource");
             dispatcher.forward(request, response);
         } catch (UniciteException e) {
 
-            request.setAttribute("erreur",true);
+            request.setAttribute("erreur", true);
 
-            request.setAttribute("messageErreur",e.getMessage());
+            request.setAttribute("messageErreur", e.getMessage());
         }
     }
 
@@ -101,23 +95,23 @@ public class ManagerRessourceServlet extends HttpServlet {
 
         String forward = request.getPathInfo();
         String[] args = forward.split("/");
-        switch (args[1]){
-            case "ajouter" :
+        switch (args[1]) {
+            case "ajouter":
                 gererAjouterGet(request, response);
                 break;
-            case "modifier" :
+            case "modifier":
                 gererModificationGet(request, response, args);
                 break;
-            case "supprimer" :
+            case "supprimer":
                 gererSupprimerGet(request, response, args);
                 break;
             default:
                 RequestDispatcher dispatcher;
-                request.setAttribute("page","/admin/ressource");
-                dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+                request.setAttribute("page", "/admin/ressource");
+                dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
                 RessourceDAO ressourceDAO = new RessourceDAO();
-                request.setAttribute("listRessource",ressourceDAO.getListeRessource());
-                dispatcher.forward(request,response);
+                request.setAttribute("listRessource", ressourceDAO.getListeRessource());
+                dispatcher.forward(request, response);
                 break;
         }
     }
@@ -125,15 +119,15 @@ public class ManagerRessourceServlet extends HttpServlet {
 
     private void gererAjouterGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        request.setAttribute("page","admin/ajoutModifRessource");
-        dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+        request.setAttribute("page", "admin/ajoutModifRessource");
+        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
 
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
-        request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
-        request.setAttribute("utilisateurListe",utilisateurDAO.getListeUtilisateur());
+        request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
+        request.setAttribute("utilisateurListe", utilisateurDAO.getListeUtilisateur());
 
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 
     private void gererModificationGet(HttpServletRequest request, HttpServletResponse response, String[] args) throws ServletException, IOException {
@@ -142,44 +136,39 @@ public class ManagerRessourceServlet extends HttpServlet {
         RessourceDAO ressourceDAO = new RessourceDAO();
         TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-        if(idRessource>0)
-        {
+        if (idRessource > 0) {
             ressourceAModifier = ressourceDAO.trouverParId(idRessource);
-            request.setAttribute("ressource",ressourceAModifier);
-            request.setAttribute("modifier",true);
-            request.setAttribute("typeRessourceListe",typeRessourceDAO.getListeTypeRessource());
-            request.setAttribute("utilisateurListe",utilisateurDAO.getListeUtilisateur());
-            request.setAttribute("page","admin/ajoutModifRessource");
+            request.setAttribute("ressource", ressourceAModifier);
+            request.setAttribute("modifier", true);
+            request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
+            request.setAttribute("utilisateurListe", utilisateurDAO.getListeUtilisateur());
+            request.setAttribute("page", "admin/ajoutModifRessource");
         }
         RequestDispatcher dispatcher;
-        dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
-        dispatcher.forward(request,response);
+        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void gererSupprimerGet(HttpServletRequest request, HttpServletResponse response, String[] args) throws ServletException, IOException {
         String idRessourceStr = args[2];
         RessourceDAO ressourceDAO = new RessourceDAO();
         int idRessource = 0;
-        try
-        {
-            idRessource= Integer.parseInt(idRessourceStr);
-        }
-        catch (NumberFormatException e)
-        {
+        try {
+            idRessource = Integer.parseInt(idRessourceStr);
+        } catch (NumberFormatException e) {
             // Impossible de récupérer la ressource à supprimer
         }
-        if(idRessource>0)
-        {
+        if (idRessource > 0) {
             Ressource ressourceASupprimer = ressourceDAO.trouverParId(idRessource);
             ressourceDAO.supprimer(ressourceASupprimer);
         }
 
         RequestDispatcher dispatcher;
-        request.setAttribute("page","admin/ressource");
+        request.setAttribute("page", "admin/ressource");
         request.setAttribute("enregistrementOK", true);
-        request.setAttribute("enregistrementMessage","Suppression effectuée");
-        request.setAttribute("listRessource",ressourceDAO.getListeRessource());
-        dispatcher=request.getRequestDispatcher("/WEB-INF/html/template.jsp");
-        dispatcher.forward(request,response);
+        request.setAttribute("enregistrementMessage", "Suppression effectuée");
+        request.setAttribute("listRessource", ressourceDAO.getListeRessource());
+        dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+        dispatcher.forward(request, response);
     }
 }

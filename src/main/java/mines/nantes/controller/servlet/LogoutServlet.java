@@ -15,11 +15,11 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/logout")
 public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("user",null);
+        request.getSession().setAttribute("user", null);
         Manager.getEntityManager().clear();
         response.sendRedirect("/reservation");
     }

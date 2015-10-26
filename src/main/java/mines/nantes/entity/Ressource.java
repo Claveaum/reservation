@@ -17,10 +17,10 @@ public class Ressource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @OneToMany(mappedBy="ressource")
+    @OneToMany(mappedBy = "ressource")
     @Cascade(CascadeType.DELETE)
     private List<Reservation> listeReservation;
 
@@ -28,13 +28,13 @@ public class Ressource {
     @JoinColumn(name = "type")
     private TypeRessource type;
 
-    @Column(name="nom")
+    @Column(name = "nom")
     private String nom;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="localisation")
+    @Column(name = "localisation")
     private String localisation;
 
     @ManyToOne

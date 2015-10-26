@@ -7,7 +7,9 @@ import mines.nantes.Exception.UniciteException;
  */
 public interface DAO<E> {
     E trouverParId(int id);
+
     void sauvegarder(E entite) throws UniciteException;
+
     void supprimer(E entite);
 
 }

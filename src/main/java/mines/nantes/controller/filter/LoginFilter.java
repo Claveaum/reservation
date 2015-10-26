@@ -15,13 +15,13 @@ public abstract class LoginFilter implements javax.servlet.Filter {
     public void doFilter(
             ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest)request;
-        HttpServletResponse resp = (HttpServletResponse)response;
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
         RequestDispatcher dispatcher;
 
         if (!isAuth(req)) {
-            dispatcher=request.getRequestDispatcher("/WEB-INF/html/login.jsp");
-            dispatcher.forward(request,response);
+            dispatcher = request.getRequestDispatcher("/WEB-INF/html/login.jsp");
+            dispatcher.forward(request, response);
             return;
         }
 
@@ -31,6 +31,7 @@ public abstract class LoginFilter implements javax.servlet.Filter {
 
     /**
      * logic to accept or reject access to the page, check log in status
+     *
      * @return true when authentication is deemed valid
      */
     protected abstract boolean isAuth(HttpServletRequest req);

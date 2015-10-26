@@ -21,17 +21,19 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher;
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        Utilisateur utilisateur = utilisateurDAO.getUtilisateurParLoginPassword(login,password);
-        if(null != utilisateur){
-            request.getSession().setAttribute("user",utilisateur);
+        Utilisateur utilisateur = utilisateurDAO.getUtilisateurParLoginPassword(login, password);
+        if (null != utilisateur) {
+            request.getSession().setAttribute("user", utilisateur);
             response.sendRedirect("/reservation/reservation");
-        }else{
-            dispatcher=request.getRequestDispatcher("/WEB-INF/html/login.jsp");
-            dispatcher.forward(request,response);
+        } else {
+            request.setAttribute("erreur",true);
+            request.setAttribute("messageErreur","Login / Password inconnu");
+            dispatcher = request.getRequestDispatcher("/WEB-INF/html/login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }

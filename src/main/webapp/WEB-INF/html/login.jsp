@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +14,13 @@
 
 <div class="container">
     <h2>Identifiez-vous</h2>
+    <c:if test="${erreur}">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+                ${messageErreur}
+        </div>
+    </c:if>
     <form action="/loginCheck" class="form-horizontal" role="form" method="post">
         <div class="form-group">
             <label class="control-label col-md-2" for="login">Login:</label>

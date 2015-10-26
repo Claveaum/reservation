@@ -2,7 +2,8 @@
 <div class="container">
     <h2>${modifier ? 'Modifier' : 'Ajouter'} un utilisateur</h2>
 
-    <form action="${modifier ? '/admin/utilisateur/modifier' : '/admin/utilisateur/ajouter'}" method="post" class="form-horizontal"
+    <form action="${modifier ? '/admin/utilisateur/modifier' : '/admin/utilisateur/ajouter'}" method="post"
+          class="form-horizontal"
           role="form">
         <input name="idUtilisateur" value="${utilisateur.id}" hidden="hidden"/>
 

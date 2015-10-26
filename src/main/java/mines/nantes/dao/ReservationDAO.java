@@ -17,13 +17,13 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
     }
 
     /**
-     * Retourne la liste des réservations d'une ressource à partir d'une date
+     * Retourne la liste des rÃ©servations d'une ressource Ã  partir d'une date
+     *
      * @param ressource
      * @param dateDebut
      * @return
      */
-    public List<Reservation> getReservationParRessource(Ressource ressource, Date dateDebut)
-    {
+    public List<Reservation> getReservationParRessource(Ressource ressource, Date dateDebut) {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Reservation.class.getName() +
                         " r WHERE r.ressource = :ressource AND dateDebut >= :dateDebut");
@@ -33,24 +33,24 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
     }
 
     /**
-     * Retourne la totalité des réservations
+     * Retourne la totalitÃ© des rÃ©servations
+     *
      * @return
      */
-    public List<Reservation> getListeReservation()
-    {
+    public List<Reservation> getListeReservation() {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Reservation.class.getName() + " r");
         return (List) q.getResultList();
     }
 
     /**
-     * Retourne la liste des réservations pour une période donnée
+     * Retourne la liste des rÃ©servations pour une pÃ©riode donnÃ©e
+     *
      * @param dateDebut
      * @param dateFin
      * @return
      */
-    public List<Reservation> getReservationParPeriode(Date dateDebut, Date dateFin)
-    {
+    public List<Reservation> getReservationParPeriode(Date dateDebut, Date dateFin) {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Reservation.class.getName() + " r WHERE dateDebut >= :dateDebut AND dateFin <= :dateFin");
         q.setParameter("dateDebut", dateDebut);

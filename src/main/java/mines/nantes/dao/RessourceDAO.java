@@ -1,6 +1,5 @@
 package mines.nantes.dao;
 
-import mines.nantes.entity.Reservation;
 import mines.nantes.entity.Ressource;
 import mines.nantes.entity.TypeRessource;
 
@@ -19,10 +18,10 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
 
     /**
      * Retourne la totalité des ressources
+     *
      * @return
      */
-    public List<Ressource> getListeRessource()
-    {
+    public List<Ressource> getListeRessource() {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Ressource.class.getName() + " r");
         return (List) q.getResultList();
@@ -30,13 +29,13 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
 
     /**
      * Retourne une liste de ressource correspondant à un type ET non réservée pendant la période donnée
+     *
      * @param typeRessource
      * @param dateDebut
      * @param dateFin
      * @return
      */
-    public List<Ressource> getRessourcesAvecTypeLibres(TypeRessource typeRessource, Date dateDebut, Date dateFin)
-    {
+    public List<Ressource> getRessourcesAvecTypeLibres(TypeRessource typeRessource, Date dateDebut, Date dateFin) {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.listeReservation resa WHERE r.type = :typeRessource" +
                         " AND (resa IS NULL OR (resa.dateDebut > :dateFin OR resa.dateFin < :dateDebut))");
@@ -48,19 +47,18 @@ public class RessourceDAO extends AbstractDAO<Ressource> {
 
     /**
      * Retourne la liste des ressources ayant pour responsable idResponsable
+     *
      * @param idResponsable
      * @return
      */
-    public List<Ressource> getRessourcesResponsable(int idResponsable)
-    {
+    public List<Ressource> getRessourcesResponsable(int idResponsable) {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.responsable responsable WHERE responsable.id = :idResponsable");
         q.setParameter("idResponsable", idResponsable);
         return q.getResultList();
     }
 
-    public List<Ressource> getRessourcesAvecType(int idTypeRessource)
-    {
+    public List<Ressource> getRessourcesAvecType(int idTypeRessource) {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Ressource.class.getName() + " r LEFT OUTER JOIN r.type type WHERE type.id = :idTypeRessource");
         q.setParameter("idTypeRessource", idTypeRessource);

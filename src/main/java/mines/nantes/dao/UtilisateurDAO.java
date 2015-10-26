@@ -3,10 +3,6 @@ package mines.nantes.dao;
 import mines.nantes.Exception.UniciteException;
 import mines.nantes.entity.Utilisateur;
 
-import org.hibernate.exception.ConstraintViolationException;
-
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class UtilisateurDAO extends AbstractDAO<Utilisateur> {
         try {
             super.sauvegarder(utilisateur);
         } catch (UniciteException e) {
-            if(Manager.getEntityManager().getTransaction().isActive()) {
+            if (Manager.getEntityManager().getTransaction().isActive()) {
                 Manager.getEntityManager().getTransaction().rollback();
             }
             throw new UniciteException("Le login " + utilisateur.getLogin() + " est déjà utilisé");

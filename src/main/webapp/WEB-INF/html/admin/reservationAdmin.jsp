@@ -53,8 +53,8 @@
             <c:forEach items="${listeReservation}" var="resa">
                 <tr>
                     <td>${resa.ressource.nom}</td>
-                    <td><fmt:formatDate value="${resa.dateDebut}" pattern="dd/MM/yyy" /></td>
-                    <td><fmt:formatDate value="${resa.dateFin}" pattern="dd/MM/yyy" /></td>
+                    <td><fmt:formatDate value="${resa.dateDebut}" pattern="dd/MM/yyy"/></td>
+                    <td><fmt:formatDate value="${resa.dateFin}" pattern="dd/MM/yyy"/></td>
                 </tr>
             </c:forEach>
             </tbody>
