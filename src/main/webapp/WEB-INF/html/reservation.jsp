@@ -10,7 +10,7 @@
         </div>
     </c:if>
     <c:if test="${enregistrementOK}">
-        <div class="alert alert-info" role="alert">${enregistrementMessage}</div>
+        <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
         <a class="btn btn-default" href="/reservation/reservation">Retour</a>
     </c:if>
     <c:if test="${!enregistrementOK}">

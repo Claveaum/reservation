@@ -70,8 +70,9 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
         Query q = Manager.getEntityManager().createQuery(
                 "SELECT r FROM " + Reservation.class.getName() + " r WHERE r.utilisateur = :utilisateur AND r.dateFin >= :dateJour");
         q.setParameter("utilisateur", utilisateur);
-        Calendar calendar = Calendar.getInstance();
-        q.setParameter("dateJour", calendar.getTime());
+        Calendar cal = Calendar.getInstance();
+        Date dateJour = new Date(cal.getTime().getYear(),cal.getTime().getMonth(),cal.getTime().getDate());
+        q.setParameter("dateJour", dateJour);
         return (List) q.getResultList();
     }
 }

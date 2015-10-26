@@ -11,7 +11,7 @@
             </div>
         </c:if>
         <c:if test="${enregistrementOK}">
-            <div class="alert alert-info" role="alert">${enregistrementMessage}</div>
+            <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
         </c:if>
         <div class="col-md-offset-8 col-md-1" style="text-align: right">
             <a href="/admin/utilisateur/ajouter"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"/></a>

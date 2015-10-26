@@ -11,7 +11,7 @@
             </div>
         </c:if>
         <c:if test="${enregistrementOK}">
-            <div class="alert alert-info" role="alert">${enregistrementMessage}</div>
+            <div class="alert alert-success" role="alert">${enregistrementMessage}</div>
         </c:if>
         <c:if test="${alerte}">
             <form method="get" action="/admin/typeRessource/supprimerValider/${typeRessource.id}">

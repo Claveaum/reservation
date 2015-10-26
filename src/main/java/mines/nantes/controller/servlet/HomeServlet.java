@@ -14,8 +14,10 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -121,19 +123,27 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         ReservationDAO reservationDAO = new ReservationDAO();
 
         try {
-            if (dateDebutStr != null && dateFinStr != null) {
+            if (dateDebutStr != null && dateFinStr != null && ressourceId != null) {
                 Date dateDebut = sdf.parse(dateDebutStr);
                 Date dateFin = sdf.parse(dateFinStr);
                 Ressource ressource = ressourceDAO.trouverParId(Integer.parseInt(ressourceId));
 
-                Reservation reservation = new Reservation();
-                reservation.setRessource(ressource);
-                reservation.setDateDebut(dateDebut);
-                reservation.setDateFin(dateFin);
-                reservation.setUtilisateur(utilisateur);
-                try {
-                    reservationDAO.sauvegarder(reservation);
-                } catch (UniciteException e) {
+                if(ressource != null)
+                {
+                    Reservation reservation = new Reservation();
+                    reservation.setRessource(ressource);
+                    reservation.setDateDebut(dateDebut);
+                    reservation.setDateFin(dateFin);
+                    reservation.setUtilisateur(utilisateur);
+                    try {
+                        reservationDAO.sauvegarder(reservation);
+                    } catch (UniciteException e) {
+                        gererErreur(request, "Impossible de réserver la ressource, veuillez réessayer");
+                        return;
+                    }
+                }
+                else
+                {
                     gererErreur(request, "Impossible de réserver la ressource, veuillez réessayer");
                     return;
                 }
@@ -163,6 +173,10 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         Date dateDebut = null;
         Date dateFin = null;
 
+        request.setAttribute("typeRessourceSelectionne", typeRessourceId);
+        request.setAttribute("dateDebutResa", dateDebutStr);
+        request.setAttribute("dateFinResa", dateFinStr);
+
         if (!"0".equals(typeRessourceId)) {
             typeRessource = typeRessourceDAO.trouverParId(Integer.parseInt(typeRessourceId));
         } else {
@@ -173,7 +187,15 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
             if (dateDebutStr != null && dateFinStr != null) {
                 dateDebut = sdf.parse(dateDebutStr);
                 dateFin = sdf.parse(dateFinStr);
-                if (!dateDebut.before(dateFin)) {
+                Calendar cal = Calendar.getInstance();
+                Date dateJour = new Date(cal.getTime().getYear(),cal.getTime().getMonth(),cal.getTime().getDate());
+                if(dateDebut.before(dateJour))
+                {
+                    gererErreur(request, "La date de début réservation doit être supérieure ou égale à la date du jour");
+                    request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
+                    return;
+                }
+                if (dateFin.before(dateDebut)) {
                     gererErreur(request, "La période renseignée est non valide");
                     request.setAttribute("typeRessourceListe", typeRessourceDAO.getListeTypeRessource());
                     return;
@@ -190,9 +212,6 @@ public class HomeServlet extends javax.servlet.http.HttpServlet {
         }
 
         if (typeRessource != null && dateDebut != null && dateFin != null) {
-            request.setAttribute("typeRessourceSelectionne", typeRessourceId);
-            request.setAttribute("dateDebutResa", dateDebutStr);
-            request.setAttribute("dateFinResa", dateFinStr);
             List<Ressource> listeRessource = ressourceDAO.getRessourcesAvecTypeLibres(typeRessource, dateDebut, dateFin);
             if (listeRessource.size() > 0) {
                 request.setAttribute("rechercheEffectuee", true);
