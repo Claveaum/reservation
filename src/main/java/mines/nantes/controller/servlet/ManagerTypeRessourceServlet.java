@@ -131,19 +131,28 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
         try {
             idTypeRessource = Integer.parseInt(idTypeRessourceStr);
         } catch (NumberFormatException e) {
-            // Impossible de récupérer la ressource à supprimer
+            request.setAttribute("page", "admin/typeRessource");
+            gererErreur(request,"Impossible de récupérer le type de ressource");
         }
         if (idTypeRessource > 0) {
-            TypeRessource typeRessourceASupprimer = typeRessourceDAO.trouverParId(idTypeRessource);
-            RessourceDAO ressourceDAO = new RessourceDAO();
             RequestDispatcher dispatcher;
-            if (ressourceDAO.getRessourcesAvecType(idTypeRessource).size() > 0) {
+            TypeRessource typeRessourceASupprimer = typeRessourceDAO.trouverParId(idTypeRessource);
+            if(typeRessourceASupprimer != null) {
+                RessourceDAO ressourceDAO = new RessourceDAO();
+                if (ressourceDAO.getRessourcesAvecType(idTypeRessource).size() > 0) {
+                    request.setAttribute("page", "admin/typeRessource");
+                    request.setAttribute("alerte", true);
+                    request.setAttribute("messageAlerte", "Attention, si vous supprimez ce type de ressource, <b>toutes les ressources associées seront supprimées</b>");
+                    request.setAttribute("typeRessource", typeRessourceASupprimer);
+                } else {
+                    supprimerTypeRessource(request, typeRessourceASupprimer);
+                }
+            }
+            else
+            {
                 request.setAttribute("page", "admin/typeRessource");
-                request.setAttribute("alerte", true);
-                request.setAttribute("messageAlerte", "Attention, si vous supprimez ce type de ressource, <b>toutes les ressources associées seront supprimées</b>");
-                request.setAttribute("typeRessource", typeRessourceASupprimer);
-            } else {
-                supprimerTypeRessource(request, typeRessourceASupprimer);
+                request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
+                gererErreur(request, "Impossible de trouver le type de ressource");
             }
             dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
             dispatcher.forward(request, response);
@@ -154,6 +163,7 @@ public class ManagerTypeRessourceServlet extends HttpServlet {
     private void supprimerTypeRessource(HttpServletRequest request, TypeRessource typeRessourceASupprimer) {
         TypeRessourceDAO typeRessourceDAO = new TypeRessourceDAO();
         typeRessourceDAO.supprimer(typeRessourceASupprimer);
+        request.setAttribute("page", "admin/typeRessource");
         request.setAttribute("listeTypeRessource", typeRessourceDAO.getListeTypeRessource());
         request.setAttribute("enregistrementOK", true);
         request.setAttribute("enregistrementMessage", "Suppression effectuée");
