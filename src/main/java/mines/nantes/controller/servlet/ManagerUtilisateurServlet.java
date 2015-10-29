@@ -57,35 +57,42 @@ public class ManagerUtilisateurServlet extends HttpServlet {
         try {
             if (estModification) {
                 idUtilisateur = Integer.parseInt(idUtilisateurStr);
+                Utilisateur utilisateurASauvegarder = new Utilisateur();
+                if (idUtilisateur > 0 && estModification) {
+                    utilisateurASauvegarder = utilisateurDAO.trouverParId(idUtilisateur);
+                    if(utilisateurASauvegarder==null)
+                    {
+                        gererErreur(request,"Impossible de modifier l'utilisateur");
+                        dispatcher = request.getRequestDispatcher("/reservation/admin/utilisateur");
+                        dispatcher.forward(request, response);
+                        return;
+                    }
+                }
+                utilisateurASauvegarder.setLogin(login);
+                utilisateurASauvegarder.setPassword(password);
+                utilisateurASauvegarder.setNom(nom);
+                utilisateurASauvegarder.setPrenom(prenom);
+                utilisateurASauvegarder.setEmail(email);
+                utilisateurASauvegarder.setTelephone(telephone);
+                utilisateurASauvegarder.setAdmin(Boolean.valueOf(admin));
+                try {
+                    utilisateurDAO.sauvegarder(utilisateurASauvegarder);
+                    if (estModification) {
+                        request.setAttribute("enregistrementMessage", "Modification effectuée");
+                    } else {
+                        request.setAttribute("enregistrementMessage", "Ajout d'utilisateur effectué");
+                    }
+                    request.setAttribute("enregistrementOK", true);
+
+
+                } catch (UniciteException e) {
+                    gererErreur(request,e.getMessage());
+                }
             }
         } catch (NumberFormatException e) {
-            //
+            gererErreur(request,"Impossible de récupérer l'utilisateur");
         }
-        Utilisateur utilisateurASauvegarder = new Utilisateur();
-        if (idUtilisateur > 0 && estModification) {
-            utilisateurASauvegarder = utilisateurDAO.trouverParId(idUtilisateur);
-        }
-        utilisateurASauvegarder.setLogin(login);
-        utilisateurASauvegarder.setPassword(password);
-        utilisateurASauvegarder.setNom(nom);
-        utilisateurASauvegarder.setPrenom(prenom);
-        utilisateurASauvegarder.setEmail(email);
-        utilisateurASauvegarder.setTelephone(telephone);
-        utilisateurASauvegarder.setAdmin(Boolean.valueOf(admin));
-        try {
-            utilisateurDAO.sauvegarder(utilisateurASauvegarder);
-            if (estModification) {
-                request.setAttribute("enregistrementMessage", "Modification effectuée");
-            } else {
-                request.setAttribute("enregistrementMessage", "Ajout d'utilisateur effectué");
-            }
-            request.setAttribute("enregistrementOK", true);
 
-
-        } catch (UniciteException e) {
-            request.setAttribute("erreur", true);
-            request.setAttribute("messageErreur", e.getMessage());
-        }
         dispatcher = request.getRequestDispatcher("/reservation/admin/utilisateur");
         dispatcher.forward(request, response);
     }
@@ -129,9 +136,18 @@ public class ManagerUtilisateurServlet extends HttpServlet {
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         if (idUtilisateur > 0) {
             utilisateurAModifier = utilisateurDAO.trouverParId(idUtilisateur);
-            request.setAttribute("utilisateur", utilisateurAModifier);
-            request.setAttribute("modifier", true);
-            request.setAttribute("page", "admin/ajoutModifUtilisateur");
+            if(utilisateurAModifier != null)
+            {
+                request.setAttribute("utilisateur", utilisateurAModifier);
+                request.setAttribute("modifier", true);
+                request.setAttribute("page", "admin/ajoutModifUtilisateur");
+            }
+            else
+            {
+
+                gererErreur(request,"Impossible de trouver l'utilisateur à modifier");
+                request.setAttribute("listUser", utilisateurDAO.getListeUtilisateur());
+            }
         }
         RequestDispatcher dispatcher;
         dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
@@ -142,31 +158,44 @@ public class ManagerUtilisateurServlet extends HttpServlet {
         String idUtilisateurStr = args[2];
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         int idUtilisateur = 0;
+        RequestDispatcher dispatcher;
         try {
             idUtilisateur = Integer.parseInt(idUtilisateurStr);
         } catch (NumberFormatException e) {
-            // Impossible de récupérer l'utilisateur à supprimer
+            gererErreur(request,"Impossible de supprimer l'utilisateur");
+            request.setAttribute("listUser", utilisateurDAO.getListeUtilisateur());
+            dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
+            dispatcher.forward(request, response);
+            return;
         }
         if (idUtilisateur > 0) {
             Utilisateur utilisateurASupprimer = utilisateurDAO.trouverParId(idUtilisateur);
-            RessourceDAO ressourceDAO = new RessourceDAO();
-            RequestDispatcher dispatcher;
-            if (ressourceDAO.getRessourcesResponsable(utilisateurASupprimer.getId()).size() > 0) {
+            if(utilisateurASupprimer == null)
+            {
                 request.setAttribute("page", "admin/utilisateur");
-                request.setAttribute("erreur", true);
-                request.setAttribute("messageErreur", "Impossible de supprimer l'utilisateur car il est responsable d'une ou plusieurs ressource(s)");
-                request.setAttribute("listUser", utilisateurDAO.getListeUtilisateur());
-            } else {
-                utilisateurDAO.supprimer(utilisateurASupprimer);
-                request.setAttribute("page", "admin/utilisateur");
-                request.setAttribute("enregistrementOK", true);
-                request.setAttribute("enregistrementMessage", "Suppression effectuée");
+                gererErreur(request, "Suppression impossible, l'utilisateur n'existe pas");
+            }
+            else {
+                RessourceDAO ressourceDAO = new RessourceDAO();
+                if (ressourceDAO.getRessourcesResponsable(utilisateurASupprimer.getId()).size() > 0) {
+                    request.setAttribute("page", "admin/utilisateur");
+                    gererErreur(request, "Impossible de supprimer l'utilisateur car il est responsable d'une ou plusieurs ressource(s)");
+                } else {
+                    utilisateurDAO.supprimer(utilisateurASupprimer);
+                    request.setAttribute("page", "admin/utilisateur");
+                    request.setAttribute("enregistrementOK", true);
+                    request.setAttribute("enregistrementMessage", "Suppression effectuée");
+                }
             }
             request.setAttribute("listUser", utilisateurDAO.getListeUtilisateur());
             dispatcher = request.getRequestDispatcher("/WEB-INF/html/template.jsp");
             dispatcher.forward(request, response);
         }
-
-
     }
+
+    private void gererErreur(HttpServletRequest request, String messageErreur) {
+        request.setAttribute("erreur", true);
+        request.setAttribute("messageErreur", messageErreur);
+    }
+
 }

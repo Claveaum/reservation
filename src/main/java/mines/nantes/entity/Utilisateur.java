@@ -1,5 +1,7 @@
 package mines.nantes.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class Utilisateur {
     private boolean admin;
 
     @OneToMany(mappedBy = "utilisateur")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Reservation> listeReservation;
 
     public int getId() {
